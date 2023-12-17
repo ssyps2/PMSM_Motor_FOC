@@ -1,4 +1,4 @@
-22468650560347690
+22470353330559731
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -54935,6 +54935,13 @@ One digit LED 7 segment SA39-11 SC39-11 SA39-12 SC39-12
 0
 10
 10
+FYP_Components
+Broadcom_HFBR-25X1Z_Horizontal
+Fiber Optic Transmitter and Receiver, https://docs.broadcom.com/docs/AV02-4369EN
+Fiber Optic Transmitter and Receiver
+0
+6
+6
 FYP_Components
 CONN_2606-1101_WAG
 
