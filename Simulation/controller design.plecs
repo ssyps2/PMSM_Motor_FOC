@@ -47,7 +47,7 @@ Plecs {
   ScriptsDialogGeometry ""
   ScriptsDialogSplitterPos "0"
   Schematic {
-    Location      [0, 23; 1536, 776]
+    Location      [0, 26; 1536, 779]
     ZoomFactor    1
     SliderPosition [0, 0]
     ShowBrowser   off
