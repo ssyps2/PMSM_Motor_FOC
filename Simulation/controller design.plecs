@@ -47,7 +47,7 @@ Plecs {
   ScriptsDialogGeometry ""
   ScriptsDialogSplitterPos "0"
   Schematic {
-    Location      [0, 26; 1536, 779]
+    Location      [8, 31; 1528, 768]
     ZoomFactor    1
     SliderPosition [0, 0]
     ShowBrowser   off
@@ -216,17 +216,17 @@ Plecs {
       Direction     down
       Flipped       off
       LabelPosition north
-      Location      [512, 216; 862, 457]
+      Location      [512, 216; 862, 461]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAD8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
 "///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAAB+AP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABfAP///wAAAbYAAAEOAAAA"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABfAP///wAAAbYAAAETAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAB"
-"wAAAH0AAAAGAAAAfQAAAAUAAAB9AAAABAAAAH0AAAAJAAAAfQAAAAgAAAB9AAAAAwAAAH0AAAACAA"
-"AAfQAAAAEAAAB9AAAA6AAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAADLAAA"
+"wAAAH0AAAAGAAAAfQAAAAkAAAB9AAAACAAAAH0AAAABAAAAfQAAAAMAAAB9AAAAAgAAAH0AAAAFAA"
+"AAfQAAAAQAAAB9AAAA6AAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAADLAAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
 "AAdAAAAAQAAAAAAAAPoAAAAAB0="
@@ -403,17 +403,17 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [65, 70; 1489, 829]
+      Location      [65, 70; 1489, 845]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAD8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
 "///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAAB+AP///wAAAAMAAAb0AAAAcvw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABvQAAABfAP///wAABvQAAAMfAAAA"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABvQAAABfAP///wAABvQAAAMzAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAB"
-"wAAAH0AAAAGAAAAfQAAAAUAAAB9AAAABAAAAH0AAAAJAAAAfQAAAAgAAAB9AAAAAwAAAH0AAAACAA"
-"AAfQAAAAEAAAB9AAAG3wAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAAEGAAA"
+"wAAAH0AAAAGAAAAfQAAAAkAAAB9AAAACAAAAH0AAAABAAAAfQAAAAMAAAB9AAAAAgAAAH0AAAAFAA"
+"AAfQAAAAQAAAB9AAAG3wAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAAEGAAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
 "AXZAAAAAQAAAAAAAAPoAAAAAB0="
@@ -464,17 +464,17 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [0, 26; 1536, 803]
+      Location      [0, 26; 1536, 807]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAD8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
 "///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAAB+AP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABfAP///wAAB4AAAAOsAAAA"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABfAP///wAAB4AAAAOxAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAB"
-"wAAAH0AAAAGAAAAfQAAAAUAAAB9AAAABAAAAH0AAAAJAAAAfQAAAAgAAAB9AAAAAwAAAH0AAAACAA"
-"AAfQAAAAEAAAB9AAABIwAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAAEGAAA"
+"wAAAH0AAAAGAAAAfQAAAAkAAAB9AAAACAAAAH0AAAABAAAAfQAAAAMAAAB9AAAAAgAAAH0AAAAFAA"
+"AAfQAAAAQAAAB9AAABIwAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAAEGAAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
 "AAdAAAAAQAAAAAAAAPoAAAAAB0="
@@ -1465,27 +1465,6 @@ Plecs {
     }
     Connection {
       Type          Wire
-      SrcComponent  "Perm.-Magnet SM"
-      SrcTerminal   1
-      DstComponent  "3ph Meter"
-      DstTerminal   4
-    }
-    Connection {
-      Type          Wire
-      SrcComponent  "Perm.-Magnet SM"
-      SrcTerminal   2
-      DstComponent  "3ph Meter"
-      DstTerminal   5
-    }
-    Connection {
-      Type          Wire
-      SrcComponent  "Perm.-Magnet SM"
-      SrcTerminal   3
-      DstComponent  "3ph Meter"
-      DstTerminal   6
-    }
-    Connection {
-      Type          Wire
       SrcComponent  "Ground3"
       SrcTerminal   1
       DstComponent  "3ph Meter"
@@ -1701,29 +1680,6 @@ Plecs {
     }
     Connection {
       Type          Signal
-      SrcComponent  "Demux1"
-      SrcTerminal   2
-      Points        [640, 215; 640, 205]
-      DstComponent  "Goto4"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "Demux1"
-      SrcTerminal   3
-      DstComponent  "Goto5"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "Demux1"
-      SrcTerminal   4
-      Points        [640, 235; 640, 245]
-      DstComponent  "Goto6"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
       SrcComponent  "From5"
       SrcTerminal   1
       DstComponent  "V"
@@ -1755,6 +1711,50 @@ Plecs {
       SrcComponent  "Constant"
       SrcTerminal   1
       DstComponent  "Goto7"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "3ph Meter"
+      SrcTerminal   4
+      DstComponent  "Perm.-Magnet SM"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "3ph Meter"
+      SrcTerminal   5
+      DstComponent  "Perm.-Magnet SM"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "3ph Meter"
+      SrcTerminal   6
+      DstComponent  "Perm.-Magnet SM"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Demux1"
+      SrcTerminal   2
+      Points        [640, 215; 640, 205]
+      DstComponent  "Goto4"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Demux1"
+      SrcTerminal   3
+      DstComponent  "Goto5"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Demux1"
+      SrcTerminal   4
+      Points        [640, 235; 640, 245]
+      DstComponent  "Goto6"
       DstTerminal   1
     }
   }
