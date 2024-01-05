@@ -16,5 +16,9 @@ The schematic of PCB is shown in Figure below.
 The PCB layout is shown in Figrue below.
 ![Diode_Clamped_Inverter_PCB](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/9c493f7f-d6ee-4b29-b8ef-86e003d67d15)
 
+3D Model:
+![3D Model_1](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/a65b89d8-199c-4125-88df-353d036784a7)
+![3D Model_2](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/4a0fd71a-1d68-4f6e-a3c0-ef6d30fd30ff)
+
 ### TimeTable
 ![image](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/ddc33e16-4198-4893-84d1-e65fb9a2295d)
