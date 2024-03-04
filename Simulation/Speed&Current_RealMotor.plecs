@@ -1,6 +1,6 @@
 Plecs {
   Name          "Speed&Current_RealMotor"
-  Version       "4.6"
+  Version       "4.7"
   CircuitModel  "ContStateSpace"
   StartTime     "0"
   TimeSpan      "2"
@@ -52,7 +52,7 @@ Plecs {
   ScriptsDialogGeometry "[521 313 456 272]"
   ScriptsDialogSplitterPos "100"
   Schematic {
-    Location      [0, 65; 1470, 856]
+    Location      [0, 26; 1536, 776]
     ZoomFactor    1
     SliderPosition [0, 0]
     ShowBrowser   off
@@ -64,6 +64,7 @@ Plecs {
       Position      [1270, 500]
       Direction     right
       Flipped       on
+      LabelPosition east
       Parameter {
         Variable      "D"
         Value         "0.001"
@@ -83,9 +84,8 @@ Plecs {
       Position      [1105, 410]
       Direction     up
       Flipped       off
+      LabelPosition south
       Frame         [-25, -25; 25, 35]
-      LabelPosition [0, 38]
-      LabelAlign    up
       Parameter {
         Variable      "configuration"
         Value         "2"
@@ -164,6 +164,7 @@ Plecs {
       Position      [1190, 470]
       Direction     right
       Flipped       on
+      LabelPosition east
       Parameter {
         Variable      "SecondFlange"
         Value         "1"
@@ -177,6 +178,7 @@ Plecs {
       Position      [1220, 505]
       Direction     right
       Flipped       on
+      LabelPosition east
       Parameter {
         Variable      "SecondFlange"
         Value         "1"
@@ -195,6 +197,7 @@ Plecs {
       Position      [1150, 535]
       Direction     right
       Flipped       on
+      LabelPosition south
       Parameter {
         Variable      "Width"
         Value         "2"
@@ -208,6 +211,7 @@ Plecs {
       Position      [1315, 535]
       Direction     up
       Flipped       off
+      LabelPosition south
     }
     Component {
       Type          Goto
@@ -216,6 +220,7 @@ Plecs {
       Position      [965, 535]
       Direction     right
       Flipped       on
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         base64 "z4kszrg="
@@ -234,6 +239,7 @@ Plecs {
       Position      [965, 590]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         base64 "z4kszrg="
@@ -252,6 +258,7 @@ Plecs {
       Position      [995, 590]
       Direction     right
       Flipped       on
+      LabelPosition south
       Parameter {
         Variable      "Width"
         Value         "2"
@@ -265,6 +272,7 @@ Plecs {
       Position      [1065, 590]
       Direction     up
       Flipped       off
+      LabelPosition south
       Location      [321, 170; 1470, 824]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAFwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
@@ -347,20 +355,21 @@ Plecs {
       Position      [1195, 235]
       Direction     up
       Flipped       off
-      Location      [195, 109; 1279, 583]
+      LabelPosition south
+      Location      [195, 109; 1279, 587]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAC0AAACGfwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAAFwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAHAAAAhkAAABmAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABCAP///wAABDwAAAG+AAAA"
+"G0AQQByAGUAYQAAAAAA/////wAAAG4A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAHAAAAhkAAAB+AP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABfAP///wAABUsAAAI3AAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAB"
-"QAAAGQAAAAEAAAAZAAAAAcAAABkAAAABgAAAGQAAAAJAAAAZAAAAAgAAABkAAAAAQAAAGQAAAADAA"
-"AAZAAAAAIAAABkAAAAtAAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAChAAA"
+"QAAAGQAAAAEAAAAZAAAAAkAAABkAAAACAAAAGQAAAADAAAAZAAAAAIAAABkAAAAAQAAAGQAAAAHAA"
+"AAZAAAAAYAAABkAAAAvgAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAAChAAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
-"AATAAAAAQAAAAAAAAPoAAAAABM="
+"AAdAAAAAQAAAAAAAAPoAAAAAB0="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
       Axes          "2"
@@ -431,6 +440,7 @@ Plecs {
       Position      [1195, 290]
       Direction     up
       Flipped       off
+      LabelPosition south
       Location      [0, 65; 1470, 844]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAC0AAABr/wCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
@@ -492,6 +502,7 @@ Plecs {
       Position      [1150, 290]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "Is"
@@ -510,6 +521,7 @@ Plecs {
       Position      [1045, 225]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "Idq*"
@@ -528,6 +540,7 @@ Plecs {
       Position      [1045, 245]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "Idq"
@@ -546,6 +559,7 @@ Plecs {
       Position      [1120, 235]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "InputWidth"
         Value         "4"
@@ -564,6 +578,7 @@ Plecs {
       Position      [1080, 235]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Width"
         Value         "[2 2]"
@@ -577,6 +592,7 @@ Plecs {
       Position      [1160, 235]
       Direction     right
       Flipped       on
+      LabelPosition south
       Parameter {
         Variable      "Width"
         Value         "[2 2]"
@@ -590,6 +606,7 @@ Plecs {
       Position      [925, 410]
       Direction     up
       Flipped       off
+      LabelPosition southSoutheast
       Parameter {
         Variable      "voltage"
         Value         "2"
@@ -603,6 +620,7 @@ Plecs {
       Position      [985, 360]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "Is"
@@ -621,6 +639,7 @@ Plecs {
       Position      [640, 390]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g1"
@@ -639,8 +658,8 @@ Plecs {
       Position      [785, 440]
       Direction     up
       Flipped       off
+      LabelPosition none
       Frame         [-95, -65; 95, 65]
-      LabelPosition [0, 0]
       SampleTime    "-1"
       CodeGenDiscretizationMethod "2"
       CodeGenTarget "Generic"
@@ -704,7 +723,7 @@ Plecs {
       }
       TerminalNames { "swa+", "swa-", "swb+", "swb-", "swc+", "swc-", "a", "b", ""
 "c", "+", "-" }
-      Location      [283, 196; 1159, 705]
+      Location      [479, 170; 1355, 673]
       ZoomFactor    1
       SliderPosition [0, 0]
       ShowBrowser   off
@@ -719,6 +738,7 @@ Plecs {
             Position      [165, 155]
             Direction     up
             Flipped       off
+            LabelPosition east
             Parameter {
               Variable      "s_init"
               Value         "0"
@@ -747,6 +767,7 @@ Plecs {
             Position      [165, 315]
             Direction     up
             Flipped       off
+            LabelPosition east
             Parameter {
               Variable      "s_init"
               Value         "0"
@@ -775,6 +796,7 @@ Plecs {
             Position      [325, 155]
             Direction     up
             Flipped       off
+            LabelPosition east
             Parameter {
               Variable      "s_init"
               Value         "0"
@@ -803,6 +825,7 @@ Plecs {
             Position      [325, 315]
             Direction     up
             Flipped       off
+            LabelPosition east
             Parameter {
               Variable      "s_init"
               Value         "0"
@@ -831,6 +854,7 @@ Plecs {
             Position      [485, 155]
             Direction     up
             Flipped       off
+            LabelPosition east
             Parameter {
               Variable      "s_init"
               Value         "0"
@@ -859,6 +883,7 @@ Plecs {
             Position      [485, 315]
             Direction     up
             Flipped       off
+            LabelPosition east
             Parameter {
               Variable      "s_init"
               Value         "0"
@@ -887,6 +912,7 @@ Plecs {
             Position      [110, 155]
             Direction     right
             Flipped       off
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "1"
@@ -905,6 +931,7 @@ Plecs {
             Position      [110, 315]
             Direction     right
             Flipped       off
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "2"
@@ -923,6 +950,7 @@ Plecs {
             Position      [265, 155]
             Direction     right
             Flipped       off
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "3"
@@ -941,6 +969,7 @@ Plecs {
             Position      [270, 315]
             Direction     right
             Flipped       off
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "4"
@@ -959,6 +988,7 @@ Plecs {
             Position      [430, 155]
             Direction     right
             Flipped       off
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "5"
@@ -977,6 +1007,7 @@ Plecs {
             Position      [430, 315]
             Direction     right
             Flipped       off
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "6"
@@ -995,6 +1026,7 @@ Plecs {
             Position      [610, 195]
             Direction     right
             Flipped       on
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "7"
@@ -1013,6 +1045,7 @@ Plecs {
             Position      [610, 235]
             Direction     right
             Flipped       on
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "8"
@@ -1031,6 +1064,7 @@ Plecs {
             Position      [610, 275]
             Direction     right
             Flipped       on
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "9"
@@ -1049,6 +1083,7 @@ Plecs {
             Position      [105, 115]
             Direction     right
             Flipped       off
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "10"
@@ -1067,6 +1102,7 @@ Plecs {
             Position      [105, 355]
             Direction     right
             Flipped       off
+            LabelPosition south
             Parameter {
               Variable      "Index"
               Value         "11"
@@ -1221,6 +1257,7 @@ Plecs {
       Position      [640, 405]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g2"
@@ -1239,6 +1276,7 @@ Plecs {
       Position      [640, 420]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g3"
@@ -1257,6 +1295,7 @@ Plecs {
       Position      [640, 435]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g4"
@@ -1275,6 +1314,7 @@ Plecs {
       Position      [640, 450]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g5"
@@ -1293,6 +1333,7 @@ Plecs {
       Position      [640, 465]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g6"
@@ -1311,6 +1352,7 @@ Plecs {
       Position      [440, 440]
       Direction     up
       Flipped       off
+      LabelPosition west
       Parameter {
         Variable      "V"
         Value         "24"
@@ -1324,6 +1366,7 @@ Plecs {
       Position      [530, 440]
       Direction     up
       Flipped       off
+      LabelPosition west
     }
     Component {
       Type          SignalDemux
@@ -1332,6 +1375,7 @@ Plecs {
       Position      [985, 155]
       Direction     right
       Flipped       on
+      LabelPosition south
       Parameter {
         Variable      "Width"
         Value         "6"
@@ -1345,6 +1389,7 @@ Plecs {
       Position      [1045, 130]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g1"
@@ -1363,6 +1408,7 @@ Plecs {
       Position      [1015, 140]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g2"
@@ -1381,6 +1427,7 @@ Plecs {
       Position      [1045, 150]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g3"
@@ -1399,6 +1446,7 @@ Plecs {
       Position      [1015, 160]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g4"
@@ -1417,6 +1465,7 @@ Plecs {
       Position      [1045, 170]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g5"
@@ -1435,6 +1484,7 @@ Plecs {
       Position      [1015, 180]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         "g6"
@@ -1453,9 +1503,8 @@ Plecs {
       Position      [385, 85]
       Direction     left
       Flipped       on
+      LabelPosition north
       Frame         [-10, -10; 10, 10]
-      LabelPosition [0, -13]
-      LabelAlign    down
       Parameter {
         Variable      "Value"
         Value         "0"
@@ -1474,9 +1523,8 @@ Plecs {
       Position      [385, 120]
       Direction     right
       Flipped       off
+      LabelPosition south
       Frame         [-10, -10; 10, 10]
-      LabelPosition [0, 13]
-      LabelAlign    up
       Parameter {
         Variable      "Value"
         Value         "4"
@@ -1495,8 +1543,8 @@ Plecs {
       Position      [635, 200]
       Direction     up
       Flipped       off
+      LabelPosition none
       Frame         [-90, -55; 90, 55]
-      LabelPosition [0, 0]
       SampleTime    "-1"
       CodeGenDiscretizationMethod "2"
       CodeGenTarget "Generic"
@@ -1542,6 +1590,7 @@ Plecs {
           Position      [170, 185]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Width"
             Value         "2"
@@ -1555,6 +1604,7 @@ Plecs {
           Position      [340, 75]
           Direction     left
           Flipped       off
+          LabelPosition north
           Parameter {
             Variable      "Tag"
             Value         "Idq"
@@ -1573,6 +1623,7 @@ Plecs {
           Position      [215, 165]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Tag"
             Value         "Idq*"
@@ -1591,6 +1642,7 @@ Plecs {
           Position      [130, 260]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "K"
             Value         "M.P/2"
@@ -1614,6 +1666,7 @@ Plecs {
           Position      [175, 260]
           Direction     right
           Flipped       on
+          LabelPosition south
           Parameter {
             Variable      "Width"
             Value         "2"
@@ -1627,9 +1680,8 @@ Plecs {
           Position      [330, 235]
           Direction     up
           Flipped       off
+          LabelPosition south
           Frame         [-35, -40; 35, 40]
-          LabelPosition [0, 43]
-          LabelAlign    up
           SampleTime    "-1"
           CodeGenDiscretizationMethod "2"
           CodeGenTarget "Generic"
@@ -1670,6 +1722,7 @@ Plecs {
               Position      [185, 345]
               Direction     right
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "Index"
                 Value         "1"
@@ -1688,6 +1741,7 @@ Plecs {
               Position      [745, 355]
               Direction     right
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "Index"
                 Value         "2"
@@ -1706,6 +1760,7 @@ Plecs {
               Position      [185, 395]
               Direction     right
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "Index"
                 Value         "3"
@@ -1724,6 +1779,7 @@ Plecs {
               Position      [235, 345]
               Direction     up
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "IconShape"
                 Value         "2"
@@ -1747,6 +1803,7 @@ Plecs {
               Position      [305, 345]
               Direction     right
               Flipped       on
+              LabelPosition south
               Parameter {
                 Variable      "Width"
                 Value         "2"
@@ -1760,6 +1817,7 @@ Plecs {
               Position      [690, 355]
               Direction     right
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "Width"
                 Value         "2"
@@ -1773,8 +1831,8 @@ Plecs {
               Position      [435, 275]
               Direction     up
               Flipped       off
+              LabelPosition none
               Frame         [-50, -35; 50, 35]
-              LabelPosition [0, 0]
               SampleTime    "-1"
               CodeGenDiscretizationMethod "2"
               CodeGenTarget "Generic"
@@ -1824,6 +1882,7 @@ Plecs {
                   Position      [340, 140]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "ExternalReset"
                     Value         "1"
@@ -1867,6 +1926,7 @@ Plecs {
                   Position      [130, 140]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "K"
                     Value         "kp"
@@ -1890,6 +1950,7 @@ Plecs {
                   Position      [225, 140]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "K"
                     Value         "ki"
@@ -1913,6 +1974,7 @@ Plecs {
                   Position      [445, 145]
                   Direction     up
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "IconShape"
                     Value         "1"
@@ -1936,6 +1998,7 @@ Plecs {
                   Position      [50, 140]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "Index"
                     Value         "1"
@@ -1954,6 +2017,7 @@ Plecs {
                   Position      [560, 145]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "Index"
                     Value         "2"
@@ -1972,6 +2036,7 @@ Plecs {
                   Position      [435, 80]
                   Direction     up
                   Flipped       off
+                  LabelPosition south
                   Location      [726, 336; 1114, 564]
                   State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAA"
 "AAQAFoAbwBvAG0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAH"
@@ -2033,6 +2098,7 @@ Plecs {
                   Position      [205, 75]
                   Direction     up
                   Flipped       off
+                  LabelPosition south
                   Location      [621, 228; 1470, 771]
                   State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAA"
 "AAQAFoAbwBvAG0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAH"
@@ -2094,6 +2160,7 @@ Plecs {
                   Position      [115, 75]
                   Direction     up
                   Flipped       off
+                  LabelPosition south
                   Location      [97, 237; 978, 738]
                   State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAA"
 "AAQAFoAbwBvAG0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAH"
@@ -2155,6 +2222,7 @@ Plecs {
                   Position      [505, 145]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "UpperLimit"
                     Value         "10"
@@ -2248,6 +2316,7 @@ Plecs {
               Position      [190, 445]
               Direction     right
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "Index"
                 Value         "4"
@@ -2266,6 +2335,7 @@ Plecs {
               Position      [465, 390]
               Direction     up
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "IconShape"
                 Value         "2"
@@ -2289,6 +2359,7 @@ Plecs {
               Position      [415, 445]
               Direction     right
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "K"
                 Value         "0.00039"
@@ -2312,6 +2383,7 @@ Plecs {
               Position      [270, 395]
               Direction     right
               Flipped       on
+              LabelPosition south
               Parameter {
                 Variable      "Width"
                 Value         "2"
@@ -2325,6 +2397,7 @@ Plecs {
               Position      [575, 250]
               Direction     up
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "IconShape"
                 Value         "2"
@@ -2348,6 +2421,7 @@ Plecs {
               Position      [575, 540]
               Direction     right
               Flipped       off
+              LabelPosition west
               Parameter {
                 Variable      "IconShape"
                 Value         "2"
@@ -2371,6 +2445,7 @@ Plecs {
               Position      [415, 495]
               Direction     right
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "K"
                 Value         "0.0076"
@@ -2394,6 +2469,7 @@ Plecs {
               Position      [525, 390]
               Direction     up
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "IconShape"
                 Value         "2"
@@ -2417,6 +2493,7 @@ Plecs {
               Position      [465, 335]
               Direction     up
               Flipped       off
+              LabelPosition south
               Parameter {
                 Variable      "IconShape"
                 Value         "2"
@@ -2440,8 +2517,8 @@ Plecs {
               Position      [430, 565]
               Direction     up
               Flipped       off
+              LabelPosition none
               Frame         [-50, -35; 50, 35]
-              LabelPosition [0, 0]
               SampleTime    "-1"
               CodeGenDiscretizationMethod "2"
               CodeGenTarget "Generic"
@@ -2491,6 +2568,7 @@ Plecs {
                   Position      [315, 140]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "ExternalReset"
                     Value         "1"
@@ -2534,6 +2612,7 @@ Plecs {
                   Position      [130, 140]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "K"
                     Value         "kp"
@@ -2557,6 +2636,7 @@ Plecs {
                   Position      [225, 140]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "K"
                     Value         "ki"
@@ -2580,6 +2660,7 @@ Plecs {
                   Position      [445, 145]
                   Direction     up
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "IconShape"
                     Value         "1"
@@ -2603,6 +2684,7 @@ Plecs {
                   Position      [50, 140]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "Index"
                     Value         "1"
@@ -2621,6 +2703,7 @@ Plecs {
                   Position      [560, 145]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "Index"
                     Value         "2"
@@ -2639,6 +2722,7 @@ Plecs {
                   Position      [525, 75]
                   Direction     up
                   Flipped       off
+                  LabelPosition south
                   Location      [1008, 255; 1396, 483]
                   State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAA"
 "AAQAFoAbwBvAG0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAH"
@@ -2700,6 +2784,7 @@ Plecs {
                   Position      [205, 75]
                   Direction     up
                   Flipped       off
+                  LabelPosition south
                   Location      [653, 228; 1502, 771]
                   State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAA"
 "AAQAFoAbwBvAG0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAH"
@@ -2761,6 +2846,7 @@ Plecs {
                   Position      [115, 75]
                   Direction     up
                   Flipped       off
+                  LabelPosition south
                   Location      [97, 237; 978, 738]
                   State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAA"
 "AAQAFoAbwBvAG0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAH"
@@ -2822,6 +2908,7 @@ Plecs {
                   Position      [505, 145]
                   Direction     right
                   Flipped       off
+                  LabelPosition south
                   Parameter {
                     Variable      "UpperLimit"
                     Value         "10"
@@ -2907,6 +2994,7 @@ Plecs {
               Position      [340, 170]
               Direction     up
               Flipped       off
+              LabelPosition south
               Location      [248, 169; 1207, 533]
               State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQA"
 "FoAbwBvAG0AQQByAGUAYQAAAAAA/////wAAAFwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcw"
@@ -3149,9 +3237,8 @@ Plecs {
           Position      [435, 230]
           Direction     up
           Flipped       on
+          LabelPosition north
           Frame         [-15, -15; 15, 15]
-          LabelPosition [0, -18]
-          LabelAlign    down
           Terminal {
             Type          Input
             Position      [-15, -5]
@@ -3176,9 +3263,8 @@ Plecs {
           Position      [430, 145]
           Direction     down
           Flipped       on
+          LabelPosition south
           Frame         [-15, -15; 15, 15]
-          LabelPosition [0, 18]
-          LabelAlign    up
           Terminal {
             Type          Input
             Position      [-15, -5]
@@ -3202,6 +3288,7 @@ Plecs {
           Position      [520, 140]
           Direction     right
           Flipped       on
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "1"
@@ -3220,6 +3307,7 @@ Plecs {
           Position      [520, 230]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "2"
@@ -3238,6 +3326,7 @@ Plecs {
           Position      [70, 205]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "3"
@@ -3256,6 +3345,7 @@ Plecs {
           Position      [70, 165]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "4"
@@ -3274,6 +3364,7 @@ Plecs {
           Position      [70, 260]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "5"
@@ -3400,6 +3491,7 @@ Plecs {
       Position      [400, 225]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Tag"
         Value         base64 "z4kszrg="
@@ -3418,8 +3510,8 @@ Plecs {
       Position      [855, 175]
       Direction     up
       Flipped       off
+      LabelPosition none
       Frame         [-60, -30; 60, 30]
-      LabelPosition [0, 0]
       SampleTime    "-1"
       CodeGenDiscretizationMethod "2"
       CodeGenTarget "Generic"
@@ -3443,7 +3535,7 @@ Plecs {
         Direction     left
       }
       Schematic {
-        Location      [576, 295; 1305, 639]
+        Location      [583, 388; 1312, 729]
         ZoomFactor    1
         SliderPosition [0, 0]
         ShowBrowser   off
@@ -3456,9 +3548,8 @@ Plecs {
           Position      [175, 105]
           Direction     up
           Flipped       on
+          LabelPosition south
           Frame         [-20, -20; 20, 20]
-          LabelPosition [0, 23]
-          LabelAlign    up
           Parameter {
             Variable      "pattern"
             Value         "1"
@@ -3497,9 +3588,8 @@ Plecs {
           Position      [295, 90]
           Direction     right
           Flipped       off
+          LabelPosition south
           Frame         [-20, -10; 20, 10]
-          LabelPosition [0, 13]
-          LabelAlign    up
           Parameter {
             Variable      "Operator"
             Value         "6"
@@ -3518,9 +3608,8 @@ Plecs {
           Position      [295, 110]
           Direction     right
           Flipped       off
+          LabelPosition south
           Frame         [-20, -10; 20, 10]
-          LabelPosition [0, 13]
-          LabelAlign    up
           Parameter {
             Variable      "Operator"
             Value         "3"
@@ -3539,6 +3628,7 @@ Plecs {
           Position      [370, 105]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Width"
             Value         "[3 3]"
@@ -3552,6 +3642,7 @@ Plecs {
           Position      [410, 105]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "InputWidth"
             Value         "6"
@@ -3570,6 +3661,7 @@ Plecs {
           Position      [485, 105]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "1"
@@ -3588,6 +3680,7 @@ Plecs {
           Position      [85, 75]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "2"
@@ -3606,6 +3699,7 @@ Plecs {
           Position      [85, 115]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "3"
@@ -3615,22 +3709,6 @@ Plecs {
             Variable      "Width"
             Value         "-1"
             Show          off
-          }
-        }
-        Connection {
-          Type          Signal
-          SrcComponent  "SV modulator"
-          SrcTerminal   1
-          Points        [215, 105]
-          Branch {
-            Points        [215, 90]
-            DstComponent  "GateFcn1"
-            DstTerminal   1
-          }
-          Branch {
-            Points        [215, 110]
-            DstComponent  "GateFcn2"
-            DstTerminal   1
           }
         }
         Connection {
@@ -3677,6 +3755,22 @@ Plecs {
           DstComponent  "SV modulator"
           DstTerminal   2
         }
+        Connection {
+          Type          Signal
+          SrcComponent  "SV modulator"
+          SrcTerminal   1
+          Points        [215, 105]
+          Branch {
+            Points        [215, 90]
+            DstComponent  "GateFcn1"
+            DstTerminal   1
+          }
+          Branch {
+            Points        [215, 110]
+            DstComponent  "GateFcn2"
+            DstTerminal   1
+          }
+        }
       }
     }
     Component {
@@ -3686,8 +3780,8 @@ Plecs {
       Position      [270, 185]
       Direction     up
       Flipped       off
+      LabelPosition none
       Frame         [-55, -30; 55, 30]
-      LabelPosition [0, 0]
       SampleTime    "-1"
       CodeGenDiscretizationMethod "2"
       CodeGenTarget "Generic"
@@ -3737,6 +3831,7 @@ Plecs {
           Position      [340, 140]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "ExternalReset"
             Value         "1"
@@ -3780,6 +3875,7 @@ Plecs {
           Position      [130, 140]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "K"
             Value         "kp"
@@ -3803,6 +3899,7 @@ Plecs {
           Position      [225, 140]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "K"
             Value         "ki"
@@ -3826,6 +3923,7 @@ Plecs {
           Position      [445, 145]
           Direction     up
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "IconShape"
             Value         "1"
@@ -3849,6 +3947,7 @@ Plecs {
           Position      [50, 140]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "1"
@@ -3867,6 +3966,7 @@ Plecs {
           Position      [545, 145]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "Index"
             Value         "2"
@@ -3885,6 +3985,7 @@ Plecs {
           Position      [500, 145]
           Direction     right
           Flipped       off
+          LabelPosition south
           Parameter {
             Variable      "UpperLimit"
             Value         "inf"
@@ -3955,6 +4056,7 @@ Plecs {
       Position      [170, 165]
       Direction     up
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "IconShape"
         Value         "2"
@@ -3978,9 +4080,8 @@ Plecs {
       Position      [75, 165]
       Direction     right
       Flipped       off
+      LabelPosition south
       Frame         [-10, -10; 10, 10]
-      LabelPosition [0, 13]
-      LabelAlign    up
       Parameter {
         Variable      "Value"
         Value         "200"
@@ -3999,9 +4100,8 @@ Plecs {
       Position      [565, 655]
       Direction     left
       Flipped       off
+      LabelPosition north
       Frame         [-30, -15; 30, 15]
-      LabelPosition [0, -18]
-      LabelAlign    down
       Parameter {
         Variable      "Numerator"
         Value         "[1]"
@@ -4025,6 +4125,7 @@ Plecs {
       Position      [1075, 355]
       Direction     up
       Flipped       off
+      LabelPosition south
       Location      [475, 65; 863, 293]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
@@ -4085,6 +4186,7 @@ Plecs {
       Position      [335, 555]
       Direction     up
       Flipped       off
+      LabelPosition south
       Location      [475, 65; 863, 293]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
@@ -4145,6 +4247,7 @@ Plecs {
       Position      [980, 310]
       Direction     right
       Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Time"
         Value         "1"
@@ -4173,6 +4276,7 @@ Plecs {
       Position      [1360, 475]
       Direction     left
       Flipped       on
+      LabelPosition west
       Parameter {
         Variable      "SecondFlange"
         Value         "2"
@@ -4191,6 +4295,68 @@ Plecs {
       Position      [1365, 535]
       Direction     up
       Flipped       off
+      LabelPosition south
+    }
+    Component {
+      Type          Scope
+      Name          "Scope2"
+      Show          on
+      Position      [880, 340]
+      Direction     down
+      Flipped       off
+      LabelPosition north
+      Location      [0, 26; 1536, 803]
+      State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
+"G0AQQByAGUAYQAAAAAA/////wAAAD8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAAB+AP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABfAP///wAAB4AAAAOsAAAA"
+"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
+"AAAAA=="
+      SavedViews    "AAAAAgAAAAA="
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAA"
+"QAAAH0AAAADAAAAfQAAAAIAAAB9AAAACQAAAH0AAAAIAAAAfQAAAAUAAAB9AAAABAAAAH0AAAAHAA"
+"AAfQAAAAYAAAB9AAABIwAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAAEGAAA"
+"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
+"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
+"AAdAAAAAQAAAAAAAAPoAAAAAB0="
+      PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      Axes          "1"
+      TimeRange     "0.0"
+      ScrollingMode "1"
+      SingleTimeAxis "1"
+      Open          "0"
+      Ts            "-1"
+      SampleLimit   "0"
+      XAxisLabel    "Time / s"
+      ShowLegend    "1"
+      Axis {
+        Name          ""
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Fourier {
+        SingleXAxis       on
+        AxisLabel         "Frequency / Hz"
+        Scaling           0
+        PhaseDisplay      0
+        ShowFourierLegend off
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
+      }
     }
     Connection {
       Type          Signal
@@ -4505,14 +4671,6 @@ Plecs {
     }
     Connection {
       Type          Signal
-      SrcComponent  "Vm4"
-      SrcTerminal   3
-      Points        [565, 440; 565, 295; 765, 295; 765, 165]
-      DstComponent  "SV Modulator"
-      DstTerminal   3
-    }
-    Connection {
-      Type          Signal
       SrcComponent  "SV Modulator"
       SrcTerminal   1
       DstComponent  "Demux1"
@@ -4598,6 +4756,22 @@ Plecs {
       Points        [1360, 515; 1365, 515]
       DstComponent  "Rotational\nFrame1"
       DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "3ph Meter"
+      SrcTerminal   7
+      Points        [920, 340]
+      DstComponent  "Scope2"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Vm4"
+      SrcTerminal   3
+      Points        [565, 440; 565, 295; 765, 295; 765, 165]
+      DstComponent  "SV Modulator"
+      DstTerminal   3
     }
   }
 }
