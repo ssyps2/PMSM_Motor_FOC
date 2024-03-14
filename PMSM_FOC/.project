@@ -24,4 +24,41 @@
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Components</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Source</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Components/Algorithm</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Components/Driver</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Source/main.c</name>
+			<type>1</type>
+			<location>C:/Users/pengyuan/Desktop/FYP/PMSM_FOC_USER/Source/main.c</location>
+		</link>
+		<link>
+			<name>Components/Algorithm/pid.c</name>
+			<type>1</type>
+			<location>C:/Users/pengyuan/Desktop/FYP/PMSM_FOC_USER/Components/Algorithm/pid.c</location>
+		</link>
+		<link>
+			<name>Components/Algorithm/pid.h</name>
+			<type>1</type>
+			<location>C:/Users/pengyuan/Desktop/FYP/PMSM_FOC_USER/Components/Algorithm/pid.h</location>
+		</link>
+	</linkedResources>
 </projectDescription>

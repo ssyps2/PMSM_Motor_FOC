@@ -52,7 +52,7 @@ Plecs {
   ScriptsDialogGeometry "[521 313 456 272]"
   ScriptsDialogSplitterPos "100"
   Schematic {
-    Location      [0, 26; 1536, 776]
+    Location      [0, 26; 1536, 773]
     ZoomFactor    1
     SliderPosition [0, 0]
     ShowBrowser   off
@@ -273,20 +273,20 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [321, 170; 1470, 824]
+      Location      [321, 170; 1470, 832]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAAFwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABCAP///wAABH0AAAJyAAAA"
+"G0AQQByAGUAYQAAAAAA/////wAAAG4A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAAB+AP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABfAP///wAABZwAAAMdAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
-      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAB"
-"QAAAGQAAAAEAAAAZAAAAAcAAABkAAAABgAAAGQAAAAJAAAAZAAAAAgAAABkAAAAAQAAAGQAAAADAA"
-"AAZAAAAAIAAABkAAAAzwAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC8AAA"
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAA"
+"QAAAGQAAAADAAAAZAAAAAIAAABkAAAACQAAAGQAAAAIAAAAZAAAAAUAAABkAAAABAAAAGQAAAAHAA"
+"AAZAAAAAYAAABkAAAA2QAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAAC8AAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
-"AATAAAAAQAAAAAAAAPoAAAAABM="
+"AAdAAAAAQAAAAAAAAPoAAAAAB0="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
       Axes          "2"
@@ -723,7 +723,7 @@ Plecs {
       }
       TerminalNames { "swa+", "swa-", "swb+", "swb-", "swc+", "swc-", "a", "b", ""
 "c", "+", "-" }
-      Location      [479, 170; 1355, 673]
+      Location      [479, 170; 1355, 670]
       ZoomFactor    1
       SliderPosition [0, 0]
       ShowBrowser   off
@@ -1355,7 +1355,7 @@ Plecs {
       LabelPosition west
       Parameter {
         Variable      "V"
-        Value         "24"
+        Value         "300"
         Show          on
       }
     }
@@ -4077,14 +4077,14 @@ Plecs {
       Type          Constant
       Name          "Speed Command"
       Show          on
-      Position      [75, 165]
+      Position      [65, 165]
       Direction     right
       Flipped       off
       LabelPosition south
-      Frame         [-10, -10; 10, 10]
+      Frame         [-20, -10; 20, 10]
       Parameter {
         Variable      "Value"
-        Value         "200"
+        Value         "2000"
         Show          off
       }
       Parameter {
