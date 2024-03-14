@@ -21,4 +21,4 @@ The PCB layout is shown in Figrue below.
 ![3D Model_2](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/4a0fd71a-1d68-4f6e-a3c0-ef6d30fd30ff)
 
 ### TimeTable
-![image](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/ddc33e16-4198-4893-84d1-e65fb9a2295d)
+![image](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/961163a5-0949-4bd6-bfe1-eb36d0dc882a)
