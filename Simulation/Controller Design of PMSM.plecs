@@ -95,7 +95,7 @@ Plecs {
   ScriptsDialogGeometry "[683 347 640 480]"
   ScriptsDialogSplitterPos "47"
   Schematic {
-    Location      [0, 26; 1536, 776]
+    Location      [0, 26; 1536, 773]
     ZoomFactor    0.873846
     SliderPosition [-1, 0]
     ShowBrowser   off
@@ -1471,7 +1471,7 @@ Plecs {
         Direction     right
       }
       Schematic {
-        Location      [0, 23; 1536, 776]
+        Location      [0, 26; 1536, 773]
         ZoomFactor    1.14437
         SliderPosition [0, 0]
         ShowBrowser   off
@@ -1802,12 +1802,12 @@ Plecs {
           }
           Parameter {
             Variable      "Before"
-            Value         "3000"
+            Value         "300"
             Show          on
           }
           Parameter {
             Variable      "After"
-            Value         "-3000"
+            Value         "-300"
             Show          on
           }
           Parameter {
@@ -2023,7 +2023,7 @@ Plecs {
             Direction     right
           }
           Schematic {
-            Location      [328, 209; 1206, 664]
+            Location      [252, 206; 1130, 655]
             ZoomFactor    1
             SliderPosition [0, 0]
             ShowBrowser   off
@@ -2417,7 +2417,7 @@ Plecs {
               Frame         [-20, -20; 20, 20]
               Parameter {
                 Variable      "sampling"
-                Value         "3"
+                Value         "1"
                 Show          off
               }
               Parameter {
@@ -2461,7 +2461,7 @@ Plecs {
               LabelPosition south
               Parameter {
                 Variable      "DialogGeometry"
-                Value         "[924 350 619 332]"
+                Value         "[1048 321 803 600]"
                 Show          off
               }
               Parameter {
@@ -2902,17 +2902,17 @@ Plecs {
               Direction     up
               Flipped       off
               LabelPosition south
-              Location      [0, 26; 1536, 843]
+              Location      [0, 26; 1536, 850]
               State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQA"
 "FoAbwBvAG0AQQByAGUAYQAAAAAA/////wAAAD8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcw"
 "AAAAAA/////wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAAB+AP///wAAAAMAAAe"
 "AAAAAq/wBAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAAB4AAAABfAP///wAAB4AA"
-"AAMuAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP///"
+"AAM3AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP///"
 "/8AAAAAAAAAAA=="
               SavedViews    "AAAAAgAAAAA="
               HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAA"
-"AAJAAAAAQAAAH0AAAADAAAAfQAAAAIAAAB9AAAACQAAAH0AAAAIAAAAfQAAAAUAAAB9AAAABAAAAH"
-"0AAAAHAAAAfQAAAAYAAAB9AAAHgAAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAs"
+"AAJAAAABgAAAH0AAAABAAAAfQAAAAMAAAB9AAAAAgAAAH0AAAAJAAAAfQAAAAgAAAB9AAAABQAAAH"
+"0AAAAEAAAAfQAAAAcAAAB9AAAHgAAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAs"
 "AAABMAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAA"
 "AAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA"
 "QAAAAAAAAc0AAAAAQAAAAAAAAPoAAAAAB0="
@@ -2968,7 +2968,7 @@ Plecs {
               Frame         [-20, -20; 20, 20]
               Parameter {
                 Variable      "sampling"
-                Value         "3"
+                Value         "1"
                 Show          off
               }
               Parameter {
@@ -3015,7 +3015,7 @@ Plecs {
               Frame         [-20, -20; 20, 20]
               Parameter {
                 Variable      "sampling"
-                Value         "3"
+                Value         "1"
                 Show          off
               }
               Parameter {
@@ -3061,6 +3061,57 @@ Plecs {
                 Variable      "Width"
                 Value         "3"
                 Show          off
+              }
+            }
+            Component {
+              Type          Scope
+              Name          "Scope1"
+              Show          on
+              Position      [420, 65]
+              Direction     up
+              Flipped       off
+              LabelPosition south
+              Location      [0, 0; 0, 0]
+              State         ""
+              SavedViews    ""
+              HeaderState   ""
+              PlotPalettes  ""
+              Axes          "1"
+              TimeRange     "0.0"
+              ScrollingMode "1"
+              SingleTimeAxis "1"
+              Open          "0"
+              Ts            "-1"
+              SampleLimit   "0"
+              XAxisLabel    "Time / s"
+              ShowLegend    "1"
+              Axis {
+                Name          ""
+                AutoScale     1
+                MinValue      0
+                MaxValue      1
+                Signals       {}
+                SignalTypes   [ ]
+                Untangle      0
+                KeepBaseline  off
+                BaselineValue 0
+              }
+              Fourier {
+                SingleXAxis       on
+                AxisLabel         "Frequency / Hz"
+                Scaling           0
+                PhaseDisplay      0
+                ShowFourierLegend off
+                Axis {
+                  Name          ""
+                  AutoScale     1
+                  MinValue      0
+                  MaxValue      1
+                  Signals       {}
+                  Untangle      0
+                  KeepBaseline  off
+                  BaselineValue 0
+                }
               }
             }
             Connection {
@@ -3161,13 +3212,6 @@ Plecs {
               SrcComponent  "Product2"
               SrcTerminal   1
               DstComponent  "Zero-Order\nHold1"
-              DstTerminal   1
-            }
-            Connection {
-              Type          Signal
-              SrcComponent  "Product1"
-              SrcTerminal   1
-              DstComponent  "Zero-Order\nHold"
               DstTerminal   1
             }
             Connection {
@@ -3352,13 +3396,6 @@ Plecs {
             }
             Connection {
               Type          Signal
-              SrcComponent  "Zero-Order\nHold"
-              SrcTerminal   2
-              DstComponent  "Symmetrical PWM\n(3-Level)"
-              DstTerminal   2
-            }
-            Connection {
-              Type          Signal
               SrcComponent  "Zero-Order\nHold1"
               SrcTerminal   2
               DstComponent  "Symmetrical PWM\n(3-Level)1"
@@ -3370,6 +3407,28 @@ Plecs {
               SrcTerminal   2
               DstComponent  "Symmetrical PWM\n(3-Level)2"
               DstTerminal   2
+            }
+            Connection {
+              Type          Signal
+              SrcComponent  "Product1"
+              SrcTerminal   1
+              DstComponent  "Zero-Order\nHold"
+              DstTerminal   1
+            }
+            Connection {
+              Type          Signal
+              SrcComponent  "Zero-Order\nHold"
+              SrcTerminal   2
+              Points        [375, 120]
+              Branch {
+                DstComponent  "Symmetrical PWM\n(3-Level)"
+                DstTerminal   2
+              }
+              Branch {
+                Points        [375, 65]
+                DstComponent  "Scope1"
+                DstTerminal   1
+              }
             }
           }
         }
@@ -7298,14 +7357,6 @@ Plecs {
         Connection {
           Type          Signal
           SrcComponent  "Demux"
-          SrcTerminal   2
-          Points        [1050, 335; 1050, 260]
-          DstComponent  "A1"
-          DstTerminal   1
-        }
-        Connection {
-          Type          Signal
-          SrcComponent  "Demux"
           SrcTerminal   3
           Points        [1055, 345; 1055, 285]
           DstComponent  "A2"
@@ -7608,6 +7659,14 @@ Plecs {
             DstTerminal   1
           }
         }
+        Connection {
+          Type          Signal
+          SrcComponent  "Demux"
+          SrcTerminal   2
+          Points        [1050, 335; 1050, 260]
+          DstComponent  "A1"
+          DstTerminal   1
+        }
       }
     }
     Component {
@@ -7663,9 +7722,9 @@ Plecs {
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
-      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAA"
-"QAAAH0AAAADAAAAfQAAAAIAAAB9AAAACQAAAH0AAAAIAAAAfQAAAAUAAAB9AAAABAAAAH0AAAAHAA"
-"AAfQAAAAYAAAB9AAAHawAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAADXAAA"
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
+"AAAAH0AAAAJAAAAfQAAAAIAAAB9AAAAAwAAAH0AAAABAAAAfQAAAAYAAAB9AAAABwAAAH0AAAAEAA"
+"AAfQAAAAUAAAB9AAAHawAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAADXAAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
 "AaUAAAAAQAAAAAAAAPoAAAAAB0="
@@ -7804,9 +7863,9 @@ Plecs {
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
-      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAA"
-"wAAAH0AAAACAAAAfQAAAAUAAAB9AAAABAAAAH0AAAAHAAAAfQAAAAYAAAB9AAAACQAAAH0AAAAIAA"
-"AAfQAAAAEAAAB9AAAHgAAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAADTAAA"
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAB"
+"gAAAH0AAAABAAAAfQAAAAMAAAB9AAAAAgAAAH0AAAAJAAAAfQAAAAgAAAB9AAAABQAAAH0AAAAEAA"
+"AAfQAAAAcAAAB9AAAHgAAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAADTAAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
 "AatAAAAAQAAAAAAAAPoAAAAAB0="
@@ -8063,7 +8122,7 @@ Plecs {
       }
       Parameter {
         Variable      "After"
-        Value         "0"
+        Value         "5"
         Show          off
       }
       Parameter {
@@ -8136,6 +8195,67 @@ Plecs {
         Variable      "Visibility"
         Value         "1"
         Show          off
+      }
+    }
+    Component {
+      Type          Scope
+      Name          "Scope"
+      Show          on
+      Position      [120, 220]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Location      [0, 26; 1536, 807]
+      State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
+"G0AQQByAGUAYQAAAAAA/////wAAAD8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAAB+AP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABfAP///wAAB4AAAAOxAAAA"
+"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
+"AAAAA=="
+      SavedViews    "AAAAAgAAAAA="
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
+"AAAAH0AAAAJAAAAfQAAAAIAAAB9AAAAAwAAAH0AAAABAAAAfQAAAAYAAAB9AAAABwAAAH0AAAAEAA"
+"AAfQAAAAUAAAB9AAAA9AAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAADXAAA"
+"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
+"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
+"AAdAAAAAQAAAAAAAAPoAAAAAB0="
+      PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      Axes          "1"
+      TimeRange     "0.0"
+      ScrollingMode "1"
+      SingleTimeAxis "1"
+      Open          "0"
+      Ts            "-1"
+      SampleLimit   "0"
+      XAxisLabel    "Time / s"
+      ShowLegend    "1"
+      Axis {
+        Name          ""
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Fourier {
+        SingleXAxis       on
+        AxisLabel         "Frequency / Hz"
+        Scaling           0
+        PhaseDisplay      0
+        ShowFourierLegend off
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
       }
     }
     Connection {
@@ -8722,13 +8842,6 @@ Plecs {
     }
     Connection {
       Type          Signal
-      SrcComponent  "Vm1"
-      SrcTerminal   3
-      DstComponent  "Goto1"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
       SrcComponent  "Controller"
       SrcTerminal   4
       Points        [570, 635; 570, 585]
@@ -8834,6 +8947,21 @@ Plecs {
       Branch {
         Points        [1175, 160]
         DstComponent  "Goto9"
+        DstTerminal   1
+      }
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Vm1"
+      SrcTerminal   3
+      Points        [75, 325]
+      Branch {
+        DstComponent  "Goto1"
+        DstTerminal   1
+      }
+      Branch {
+        Points        [75, 220]
+        DstComponent  "Scope"
         DstTerminal   1
       }
     }

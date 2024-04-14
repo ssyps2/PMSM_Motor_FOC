@@ -20,5 +20,13 @@ The PCB layout is shown in Figrue below.
 ![3D Model_1](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/a65b89d8-199c-4125-88df-353d036784a7)
 ![3D Model_2](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/4a0fd71a-1d68-4f6e-a3c0-ef6d30fd30ff)
 
+Diode Clamped Inverter:
+![Diode Clamped Inverter](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/26e4de7f-756b-4ba4-b1e8-3f6025c14516)
+
+
 ### TimeTable
 ![image](https://github.com/ssyps2/PMSM_Motor_FOC/assets/72872247/961163a5-0949-4bd6-bfe1-eb36d0dc882a)
+
+### Proposal
+[Final Year Project Proposal - Pengyuan SHU.pdf](https://github.com/ssyps2/PMSM_Motor_FOC/files/14595623/Final.Year.Project.Proposal.-.Pengyuan.SHU.pdf)
+
