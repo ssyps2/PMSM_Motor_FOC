@@ -11,8 +11,9 @@
 #include "driverlib.h"
 #include "device.h"
 
-#define SW_FREQ     10000
 
+void SPWM_initGPIOs(void);
+void SPWM_generate_3level(float32_t *sinWave, float32_t sawtooth_upper, float32_t sawtooth_lower);
 
 
 #endif /* COMPONENTS_DRIVER_SPWM_H_ */

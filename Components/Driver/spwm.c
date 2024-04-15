@@ -6,65 +6,193 @@
 
 #include "spwm.h"
 
-
-uint16_t cpuTimer1IntCount;
-
-float32_t sawtooth_upper;
-float32_t sawtooth_lower;
-
-
-// initCPUTimers - This function initializes all three CPU timers to a known state.
-void initCPUTimer1(void)
+void SPWM_initGPIOs(void)
 {
-    // Initialize timer period to maximum
-    CPUTimer_setPeriod(CPUTIMER1_BASE, 0xFFFFFFFF);
+    // A1
+    GPIO_setPadConfig(11, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_11_GPIO11);
+    GPIO_setDirectionMode(11, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(11, 0);
 
-    // Initialize pre-scale counter to divide by 1 (SYSCLKOUT)
-    CPUTimer_setPreScaler(CPUTIMER1_BASE, 0);
+    // A2
+    GPIO_setPadConfig(10, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_10_GPIO10);
+    GPIO_setDirectionMode(10, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(10, 0);
 
-    // Make sure timer is stopped
-    CPUTimer_stopTimer(CPUTIMER1_BASE);
+    // A3
+    GPIO_setPadConfig(9, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_9_GPIO9);
+    GPIO_setDirectionMode(9, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(9, 0);
 
-    // Reload all counter register with period value
-    CPUTimer_reloadTimerCounter(CPUTIMER1_BASE);
+    // A4
+    GPIO_setPadConfig(8, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_8_GPIO8);
+    GPIO_setDirectionMode(8, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(8, 0);
 
-    // Reset interrupt counter
-    cpuTimer1IntCount = 0;
+    // B1
+    GPIO_setPadConfig(5, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_5_GPIO5);
+    GPIO_setDirectionMode(5, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(5, 0);
+
+    // B2
+    GPIO_setPadConfig(4, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_4_GPIO4);
+    GPIO_setDirectionMode(4, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(4, 0);
+
+    // B3
+    GPIO_setPadConfig(7, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_7_GPIO7);
+    GPIO_setDirectionMode(7, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(7, 0);
+
+    // B4
+    GPIO_setPadConfig(6, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_6_GPIO6);
+    GPIO_setDirectionMode(6, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(6, 0);
+
+    // C1
+    GPIO_setPadConfig(3, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_3_GPIO3);
+    GPIO_setDirectionMode(3, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(3, 0);
+
+    // C2
+    GPIO_setPadConfig(2, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_2_GPIO2);
+    GPIO_setDirectionMode(2, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(2, 0);
+
+    // C3
+    GPIO_setPadConfig(1, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_1_GPIO1);
+    GPIO_setDirectionMode(1, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(1, 0);
+
+    // C4
+    GPIO_setPadConfig(0, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_0_GPIO0);
+    GPIO_setDirectionMode(0, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(0, 0);
 }
 
-//
-// configCPUTimer - This function initializes the selected timer to the
-// period specified by the "freq" and "period" parameters. The "freq" is
-// entered as Hz and the period in uSeconds. The timer is held in the stopped
-// state after configuration.
-//
-void configCPUTimer1(uint32_t cpuTimer, float freq, float period)
+
+void SPWM_generate_3level(float32_t *sinWave, float32_t sawtooth_upper, float32_t sawtooth_lower)
 {
-    // Initialize timer period:
-    CPUTimer_setPeriod(cpuTimer, (freq / 1000000 * period)); // 10kHz
+    uint8_t i;
+    uint8_t pwm_upper[3] = {0};
+    uint8_t pwm_lower[3] = {0};
 
-    // Set pre-scale counter to divide by 1 (SYSCLKOUT):
-    CPUTimer_setPreScaler(cpuTimer, 0);
-
-    // Initializes timer control register. The timer is stopped, reloaded,
-    // free run disabled, and interrupt enabled.
-    // Additionally, the free and soft bits are set
-    CPUTimer_stopTimer(cpuTimer);
-    CPUTimer_reloadTimerCounter(cpuTimer);
-    CPUTimer_setEmulationMode(cpuTimer,
-                              CPUTIMER_EMULATIONMODE_STOPAFTERNEXTDECREMENT);
-    CPUTimer_enableInterrupt(cpuTimer);
-
-    //
-    // Resets interrupt counters for the cpuTimer
-    //
-    if (cpuTimer == CPUTIMER1_BASE)
+    // Generate Symmetrical PWM
+    for(i=0; i<3; ++i)
     {
-        cpuTimer0IntCount = 0;
+        // Compare with upper sawtooth
+        if(sinWave[i] >= sawtooth_upper) pwm_upper[i] = 1;
+        else if(sinWave[i] < sawtooth_upper) pwm_upper[i] = 0;
+
+        // Compare with lower sawtooth
+        if(sinWave[i] >= sawtooth_lower) pwm_lower[i] = 1;
+        else if(sinWave[i] < sawtooth_lower) pwm_lower[i] = 0;
+
+        switch(i)
+        {
+        // Generate PWM for 4 gates in Phase A
+        case 0:
+            GPIO_writePin(11, pwm_upper[i]);
+            GPIO_writePin(10, !(pwm_upper[i]));
+            GPIO_writePin(9,  pwm_lower[i]);
+            GPIO_writePin(8,  !(pwm_lower[i]));
+            break;
+
+        // Generate PWM for 4 gates in Phase B
+        case 1:
+            GPIO_writePin(5, pwm_upper[i]);
+            GPIO_writePin(4, !(pwm_upper[i]));
+            GPIO_writePin(7, pwm_lower[i]);
+            GPIO_writePin(6, !(pwm_lower[i]));
+            break;
+
+        // Generate PWM for 4 gates in Phase C
+        case 2:
+            GPIO_writePin(3, pwm_upper[i]);
+            GPIO_writePin(2, !(pwm_upper[i]));
+            GPIO_writePin(1, pwm_lower[i]);
+            GPIO_writePin(0, !(pwm_lower[i]));
+            break;
+        }
     }
-}
 
-void SPWM_generate(float32_t sinWave)
-{
-
+//    // Generate PWM for 4 gates in Phase A
+//    if(symmetry_pwm[0] > 0)
+//    {
+//        GPIO_writePin(11, 1);
+//        GPIO_writePin(10, 1);
+//        GPIO_writePin(9,  0);
+//        GPIO_writePin(8,  0);
+//    }
+//    else if(symmetry_pwm[0] == 0)
+//    {
+//        GPIO_writePin(11, 0);
+//        GPIO_writePin(10, 1);
+//        GPIO_writePin(9,  1);
+//        GPIO_writePin(8,  0);
+//    }
+//    else if(symmetry_pwm[0] < 0)
+//    {
+//        GPIO_writePin(11, 0);
+//        GPIO_writePin(10, 0);
+//        GPIO_writePin(9,  1);
+//        GPIO_writePin(8,  1);
+//    }
+//
+//    // Generate PWM for 4 gates in Phase B
+//    if(symmetry_pwm[0] > 0)
+//    {
+//        GPIO_writePin(5, 1);
+//        GPIO_writePin(4, 1);
+//        GPIO_writePin(7, 0);
+//        GPIO_writePin(6, 0);
+//    }
+//    else if(symmetry_pwm[0] == 0)
+//    {
+//        GPIO_writePin(5, 0);
+//        GPIO_writePin(4, 1);
+//        GPIO_writePin(7, 1);
+//        GPIO_writePin(6, 0);
+//    }
+//    else if(symmetry_pwm[0] < 0)
+//    {
+//        GPIO_writePin(5, 0);
+//        GPIO_writePin(4, 0);
+//        GPIO_writePin(7, 1);
+//        GPIO_writePin(6, 1);
+//    }
+//
+//    // Generate PWM for 4 gates in Phase C
+//    if(symmetry_pwm[0] > 0)
+//    {
+//        GPIO_writePin(3, 1);
+//        GPIO_writePin(2, 1);
+//        GPIO_writePin(1, 0);
+//        GPIO_writePin(0, 0);
+//    }
+//    else if(symmetry_pwm[0] == 0)
+//    {
+//        GPIO_writePin(3, 0);
+//        GPIO_writePin(2, 1);
+//        GPIO_writePin(1, 1);
+//        GPIO_writePin(0, 0);
+//    }
+//    else if(symmetry_pwm[0] < 0)
+//    {
+//        GPIO_writePin(3, 0);
+//        GPIO_writePin(2, 0);
+//        GPIO_writePin(1, 1);
+//        GPIO_writePin(0, 1);
+//    }
 }
