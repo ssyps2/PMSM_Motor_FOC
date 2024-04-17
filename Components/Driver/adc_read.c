@@ -38,11 +38,10 @@ void initADCSOCs(void)
     ADC_setupSOC(ADCC_BASE, ADC_SOC_NUMBER0, ADC_TRIGGER_CPU1_TINT0, ADC_CH_ADCIN3, 15);
 }
 
-void ADC_updateReading(uint16_t *adcResult)
+void ADC_updateReading(uint16_t *dcVolt, uint16_t *currA, uint16_t *currB)
 {
     // Store results
-    //adcResult[0] = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER1);
-    adcResult[1] = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER0);
-    adcResult[2] = ADC_readResult(ADCBRESULT_BASE, ADC_SOC_NUMBER0);
-    adcResult[3] = ADC_readResult(ADCCRESULT_BASE, ADC_SOC_NUMBER0);
+    dcVolt = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER0);    // DC voltage
+    currA  = ADC_readResult(ADCBRESULT_BASE, ADC_SOC_NUMBER0);    // Phase A current
+    currB  = ADC_readResult(ADCCRESULT_BASE, ADC_SOC_NUMBER0);    // Phase B current
 }

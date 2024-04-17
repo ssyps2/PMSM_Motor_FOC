@@ -1,6 +1,8 @@
 # FIXED
 
 main.obj: ../main.c
+main.obj: ../main.h
+main.obj: C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/Components/Algorithm/pid.h
 main.obj: C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/Components/Driver/adc_read.h
 main.obj: C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/device/driverlib.h
 main.obj: C:/ti/c2000/C2000Ware_5_01_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h
@@ -88,6 +90,7 @@ main.obj: C:/ti/c2000/C2000Ware_5_01_00_00/driverlib/f2837xd/driverlib/inc/hw_up
 main.obj: C:/ti/c2000/C2000Ware_5_01_00_00/driverlib/f2837xd/driverlib/version.h
 main.obj: C:/ti/c2000/C2000Ware_5_01_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
 main.obj: C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/device/device.h
+main.obj: C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/Components/Driver/sensor_read.h
 main.obj: C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/Components/Driver/spwm.h
 main.obj: C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/device/device.h
 main.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/math.h
@@ -95,6 +98,10 @@ main.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/_defs
 main.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/machine/_limits.h
 
 ../main.c:
+
+../main.h:
+
+C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/Components/Algorithm/pid.h:
 
 C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/Components/Driver/adc_read.h:
 
@@ -269,6 +276,8 @@ C:/ti/c2000/C2000Ware_5_01_00_00/driverlib/f2837xd/driverlib/version.h:
 C:/ti/c2000/C2000Ware_5_01_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h:
 
 C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/device/device.h:
+
+C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/Components/Driver/sensor_read.h:
 
 C:/Users/pengyuan/Documents/ccs_workspace/F28379D_FOC/Components/Driver/spwm.h:
 

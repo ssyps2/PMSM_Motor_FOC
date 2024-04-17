@@ -1,6 +1,5 @@
 "./main.obj"
 "./Components/Algorithm/pid.obj"
-"./Components/Algorithm/transformation.obj"
 "./Components/Driver/adc_read.obj"
 "./Components/Driver/sensor_read.obj"
 "./Components/Driver/spwm.obj"

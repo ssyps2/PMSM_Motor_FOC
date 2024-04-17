@@ -15,7 +15,7 @@
 // Function prototype
 void initADCs(void);
 void initADCSOCs(void);
-void ADC_updateReading(uint16_t *adcResult);
+void ADC_updateReading(uint16_t *dcVolt, uint16_t *currA, uint16_t *currB);
 
 
 #endif /* COMPONENTS_DRIVER_ADC_READ_H_ */

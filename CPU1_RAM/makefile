@@ -12,7 +12,6 @@ GEN_CMDS__FLAG :=
 ORDERED_OBJS += \
 "./main.obj" \
 "./Components/Algorithm/pid.obj" \
-"./Components/Algorithm/transformation.obj" \
 "./Components/Driver/adc_read.obj" \
 "./Components/Driver/sensor_read.obj" \
 "./Components/Driver/spwm.obj" \
@@ -155,8 +154,8 @@ F28379D_FOC.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.obj" "Components\Algorithm\pid.obj" "Components\Algorithm\transformation.obj" "Components\Driver\adc_read.obj" "Components\Driver\sensor_read.obj" "Components\Driver\spwm.obj" "device\F2837xD_CodeStartBranch.obj" "device\device.obj" 
-	-$(RM) "main.d" "Components\Algorithm\pid.d" "Components\Algorithm\transformation.d" "Components\Driver\adc_read.d" "Components\Driver\sensor_read.d" "Components\Driver\spwm.d" "device\device.d" 
+	-$(RM) "main.obj" "Components\Algorithm\pid.obj" "Components\Driver\adc_read.obj" "Components\Driver\sensor_read.obj" "Components\Driver\spwm.obj" "device\F2837xD_CodeStartBranch.obj" "device\device.obj" 
+	-$(RM) "main.d" "Components\Algorithm\pid.d" "Components\Driver\adc_read.d" "Components\Driver\sensor_read.d" "Components\Driver\spwm.d" "device\device.d" 
 	-$(RM) "device\F2837xD_CodeStartBranch.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
