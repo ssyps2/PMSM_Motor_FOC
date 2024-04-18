@@ -7,14 +7,12 @@
 
 #include "PID.h"
 
-extern const float32_t Ts;
-
 void PIDController_Init(PIDController *pid) {
 
     /* Clear controller variables */
     pid->Kd = 0.0f;
 
-    pid->T = Ts;
+    pid->T = 0.0001f; // Switching period
 
     pid->integrator = 0.0f;
     pid->prevError  = 0.0f;

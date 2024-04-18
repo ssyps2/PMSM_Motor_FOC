@@ -37,37 +37,27 @@ void main(void)
     configCPUTimers(CPUTIMER0_BASE, DEVICE_SYSCLK_FREQ, 100);   // 10kHz
     configCPUTimers(CPUTIMER1_BASE, DEVICE_SYSCLK_FREQ, 5);     // 200kHz
 
-    //
     // To ensure precise timing, use write-only instructions to write to the
     // entire register. Therefore, if any of the configuration bits are changed
     // in configCPUTimer and initCPUTimers, the below settings must also
     // be updated.
-    //
     CPUTimer_enableInterrupt(CPUTIMER0_BASE);
     CPUTimer_enableInterrupt(CPUTIMER1_BASE);
 
-    //
     // Enables CPU interrupt which are connected to CPU-Timer 0 and CPU-Timer 1
     // Enable TINT0 in the PIE: Group 1 interrupt 7
-    //
     Interrupt_enable(INT_TIMER0);
     Interrupt_enable(INT_TIMER1);
 
-    //
     // Starts CPU-Timer 0 and CPU-Timer 1
-    //
     CPUTimer_startTimer(CPUTIMER0_BASE);
     CPUTimer_startTimer(CPUTIMER1_BASE);
 
-    //
     // Set up ADCs, initializing the SOCs
-    //
     initADCs();
     initADCSOCs();
 
-    //
     // Initialize PID controllers and parameters
-    //
     PIDController_Init(&pidCurrent_Q);
     PIDController_Init(&pidCurrent_D);
     PIDController_Init(&pidSpeed);
@@ -98,25 +88,35 @@ __interrupt void TIMER0ISR(void)
     ADC_updateReading(&dcVoltage_adc, &currA_adc, &currB_adc);
 
     // Calculate the real current & voltage values
-    dcVoltage_1 = (float32_t)dcVoltage_adc * DC_VOLTAGE / 4096
+    dcVoltage_1 = (float32_t)dcVoltage_adc * DC_VOLTAGE / 4096;
     dcVoltage_2 = DC_VOLTAGE - dcVoltage_1;
     currA = (currA_adc * (3.3f/4095.0f) * (2.0f/3.0f) * (9.9f/4.3f) - 2.5f) / 0.1f;
     currB = (currB_adc * (3.3f/4095.0f) * (2.0f/3.0f) * (9.9f/4.3f) - 2.5f) / 0.1f;
 
     // Update motor angle and speed reading
+//    angle =           // in rad/s
+//    speed =           // in RPM
 
+    // Speed control loop
+    current_set_Q = PIDController_Update(&pidSpeed, speed_set, speed_measure);
 
-    // Speed control loop & DC balance
+    // DC balance control
+    if(speed_set >= 0)
+    {
+        current_set_balanceDC = PIDController_Update(&pidBalanceDC, dcVoltage_1, dcVoltage_2);
+    }
+    else if(speed_set < 0)
+    {
+        current_set_balanceDC = PIDController_Update(&pidBalanceDC, dcVoltage_2, dcVoltage_1);
+    }
 
+    // Current control loop: update 3 phase voltage_set
+    currentLoopCalc();
 
-    // Current control loop (FOC)
-
-
-
-
-//    sinWave[0] = sinf(100 * M_PI * real_time0);
-//    sinWave[1] = sinf(100 * M_PI * real_time0 + M_PI/3);
-//    sinWave[2] = sinf(100 * M_PI * real_time0 - M_PI/3);
+    // only for testing:
+    phaseVoltage_set[0] = 0.95 * sinf(100 * M_PI * real_time0);
+    phaseVoltage_set[1] = 0.95 * sinf(100 * M_PI * real_time0 + M_PI/3);
+    phaseVoltage_set[2] = 0.95 * sinf(100 * M_PI * real_time0 - M_PI/3);
 
     // Acknowledge the interrupt
     Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP1);
@@ -141,11 +141,12 @@ __interrupt void TIMER1ISR(void)
     sawtooth_lower = sawtooth_upper - 1;
 
     // Generate PWM to control each IGBT
-    SPWM_generate_3level(sinWave, sawtooth_upper, sawtooth_lower);
+    SPWM_generate_3level(phaseVoltage_set, sawtooth_upper, sawtooth_lower);
 }
 
-
-// initCPUTimers - This function initializes all three CPU timers to a known state.
+//
+// initCPUTimers - This function initializes all three CPU timers to a known state
+//
 void initCPUTimers(uint32_t cpuTimer)
 {
     // Initialize timer period to maximum
@@ -238,4 +239,35 @@ void PIDParameters_Init(void)
 
     pidBalanceDC.limMinInt = 0.0f;
     pidBalanceDC.limMaxInt = 5.0f;
+}
+
+
+//
+// Current loop calculation
+//
+void currentLoopCalc(void)
+{
+    float32_t electrical_angle_measure = angle_measure * POLE_PAIRS;
+    float32_t electrical_speed_measure = speed_measure * POLE_PAIRS;
+
+    // Clark Transformation
+    float32_t curr_Alpha1 = currA;
+    float32_t curr_Beta1  = (currA + 2.0f * currB) * sqrtf(3) / 3.0f;
+
+    // Park Transformation
+    float32_t curr_D1 = cosf(electrical_angle_measure)*curr_Alpha1 + sinf(electrical_angle_measure)*curr_Beta1;
+    float32_t curr_Q1 = -sinf(electrical_angle_measure)*curr_Alpha1 + cosf(electrical_angle_measure)*curr_Beta1;
+
+    // Parallel PI loop: D-axis and Q-axis
+    float32_t curr_D2 = PIDController_Update(&pidCurrent_D, current_set_D, curr_D1) - (curr_Q1 * STATOR_L * electrical_speed_measure);
+    float32_t curr_Q2 = PIDController_Update(&pidCurrent_Q, current_set_Q, curr_Q1) + (FLUX * electrical_speed_measure) + (curr_D1 * STATOR_L * electrical_speed_measure);
+
+    // Inverse Park Transformation
+    float32_t curr_Alpha2 = cosf(electrical_angle_measure) * curr_D2 - sinf(electrical_angle_measure) * curr_Q2;
+    float32_t curr_Beta2  = sinf(electrical_angle_measure) * curr_D2 + cosf(electrical_angle_measure) * curr_Q2;
+
+    // Inverse Clark Transformation
+//    phaseVoltage_set[0] = (curr_Alpha2 + current_set_balanceDC) / DC_VOLTAGE;
+//    phaseVoltage_set[1] = (0.5f * (sqrtf(3) * curr_Beta2 - curr_Alpha2) + current_set_balanceDC) / DC_VOLTAGE;
+//    phaseVoltage_set[2] = (-0.5 * (curr_Alpha2 + sqrtf(3) * curr_Beta2) + current_set_balanceDC) / DC_VOLTAGE;
 }
