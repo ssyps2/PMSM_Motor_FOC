@@ -52,7 +52,7 @@ Plecs {
   ScriptsDialogGeometry "[521 313 456 272]"
   ScriptsDialogSplitterPos "100"
   Schematic {
-    Location      [0, 26; 1536, 773]
+    Location      [0, 26; 1536, 770]
     ZoomFactor    1
     SliderPosition [0, 0]
     ShowBrowser   off
@@ -3535,7 +3535,7 @@ Plecs {
         Direction     left
       }
       Schematic {
-        Location      [583, 388; 1312, 729]
+        Location      [225, 366; 954, 704]
         ZoomFactor    1
         SliderPosition [0, 0]
         ShowBrowser   off
@@ -3713,21 +3713,6 @@ Plecs {
         }
         Connection {
           Type          Signal
-          SrcComponent  "GateFcn1"
-          SrcTerminal   2
-          Points        [325, 90; 325, 100]
-          DstComponent  "Mux1"
-          DstTerminal   2
-        }
-        Connection {
-          Type          Signal
-          SrcComponent  "GateFcn2"
-          SrcTerminal   2
-          DstComponent  "Mux1"
-          DstTerminal   3
-        }
-        Connection {
-          Type          Signal
           SrcComponent  "Mux1"
           SrcTerminal   1
           DstComponent  "Cont\nSelector1"
@@ -3770,6 +3755,21 @@ Plecs {
             DstComponent  "GateFcn2"
             DstTerminal   1
           }
+        }
+        Connection {
+          Type          Signal
+          SrcComponent  "GateFcn1"
+          SrcTerminal   2
+          Points        [325, 90; 325, 100]
+          DstComponent  "Mux1"
+          DstTerminal   2
+        }
+        Connection {
+          Type          Signal
+          SrcComponent  "GateFcn2"
+          SrcTerminal   2
+          DstComponent  "Mux1"
+          DstTerminal   3
         }
       }
     }
