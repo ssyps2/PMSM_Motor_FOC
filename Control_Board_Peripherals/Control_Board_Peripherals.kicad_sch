@@ -3267,6 +3267,15 @@
     (uuid ffbc3498-3e40-47b5-b0d6-6f373a9e943b)
   )
 
+  (text "DC Voltage Sampling" (at 98.552 111.252 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 88ff278b-05fe-4c61-9895-cf32803fab2f)
+  )
+  (text "Phase A Current Sampling" (at 195.8594 98.171 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid cb3203ef-f887-4ae6-ae7d-dddd9d19f58f)
+  )
+
   (label "CH_B" (at 43.4594 90.5002 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 08b20225-080e-44f2-9274-dbb2409c0402)

@@ -8386,6 +8386,10 @@
     (uuid fff04371-55b5-47f0-ab13-4184e1ee8792)
   )
 
+  (text "Decoupling Capacitors" (at 265.6586 344.5002 0)
+    (effects (font (size 1.27 1.27) (thickness 0.254) bold) (justify left bottom))
+    (uuid 14d1f2b9-bc6a-4ca3-97bb-28674275b893)
+  )
   (text "DC-DC Converter: 5V to +/- 15V" (at 207.6196 326.39 0)
     (effects (font (size 1.27 1.27) bold) (justify left bottom))
     (uuid 3192226a-4b59-499c-bb0d-2018f4536fec)
