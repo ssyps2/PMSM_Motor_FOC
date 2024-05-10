@@ -1,0 +1,903 @@
+Plecs {
+  Name          "PMSM"
+  Version       "4.7"
+  CircuitModel  "ContStateSpace"
+  StartTime     "0.0"
+  TimeSpan      "1"
+  Timeout       ""
+  Solver        "auto"
+  MaxStep       "1e-3"
+  InitStep      "-1"
+  FixedStep     "1e-3"
+  Refine        "3"
+  ZCStepSize    "1e-9"
+  RelTol        "1e-6"
+  AbsTol        "-1"
+  TurnOnThreshold "0"
+  SyncFixedStepTasks "2"
+  UseSingleCommonBaseRate "2"
+  LossVariableLimitExceededMsg "3"
+  NegativeSwitchLossMsg "3"
+  DivisionByZeroMsg "3"
+  StiffnessDetectionMsg "2"
+  MaxConsecutiveZCs "1000"
+  AlgebraicLoopWithStateMachineMsg "3"
+  AssertionAction "2"
+  InitializationCommands "%% modulator configuration \nconfig = 'switched'\n%c"
+"onfig = 'averaged'\nplots = 'no'\n%plots = 'yes'\n\nif (strcmp(config,'switch"
+"ed'))\n   f_range = [2 1e3 4e3];\n   config = 1;\nelse\n   f_range = [10 1e3 "
+"100e3];\n   config = 2;\nend\n\npi = 3.14159265358979323846;\n\n%% motor Para"
+"meters (low-inertia servo BSM90N-175)\nP.J = 0.0003389; \t\t\t\t% motor inert"
+"ia\nM.Rs = 1.24;\t\t\t\t\t% stator resistance (Ohm)\nM.Ld = 0.00415;\t\t\t\t%"
+" stator inductance in d-axis (H)\nM.Lq = 0.00415;\t\t\t\t% stator inductance "
+"in q-axis (H)\nM.P = 8;\t\t\t\t\t\t\t% poles\nM.Kt = 0.853; \t\t\t\t\t% motor"
+" torque constant (Nm/Amp)\nM.Ke = 72.8;\t\t\t\t\t% voltage gradient (V peak L"
+"ine-Line, Vpk/krpm)\nM.Psir = 2*M.Kt/(3*M.P/2); % flux: 2*M.Kt/(3*M.P/2), or "
+"M.Ke*sqrt(3)/(100*pi*M.P/2)\nM.B = 0.01;\t\t\t\t\t\t% friction coefficient: N"
+"m/(rad/s)\nM.Id0 = 0;\nM.Iq0 = 0;\nM.thm0 = 0;\nM.is0 = [M.Id0 M.Iq0];\n\n%% "
+"current controller\nD.fpwm = 10e3;\nD.fs = D.fpwm;\t\t% switching frequency\n"
+"D.Tpwm = 1/D.fpwm;\nD.Tdt = 1*D.Tpwm; % deadtime\nD.Ts = 1/D.fs;\t\t% switchi"
+"ng time\n\n%%\ttuned according to Closed-Form Crossover Specification\nC.wc_H"
+"z = 1000;\t\t\t\t\t\t\t\t\t\t\t\t% desired crossover frequency\nC.wc = C.wc_H"
+"z * (2 * pi);\t\t\t\t\t\t\t\t\t% desired crossover frequency rad/s wc plant ="
+" 30\nC.phi = 55 * (pi / 180); \t\t\t\t\t\t\t\t\t% desired phase margin degree"
+"\n\ns = tf('s');\nG_plant = 1 / (s*M.Ld + M.Rs);\t\t\t\t\t\t\t% plant transfe"
+"r function\n[num,den] = padecoef(D.Tdt,2);\t\t\t\t\t\t\t% delay modeling by p"
+"ade approximation %G_delay = 1 / (s*D.Tpwm + 1);\t\nG_pade = tf (num, den);\t"
+"% delay transfer function  % G_delay = 1 / (s*1*D.Tpwm + 1);\nG_plant_d = G_p"
+"lant * G_pade;\t\t\t\t\t\t\t\t% transfer function plant and delays\n[C.mag, C"
+".phase] = bode(G_plant_d, C.wc);\t\t\t\t% calculation of magnitude and phase "
+"at crossover frequency  %r_p = 1 / sqrt((M.Ld*wc)^2 + M.Rs^2) %phi_p = -atan("
+"(M.Ld * wc) / (M.Rs)) \t\nC.phase = C.phase * (pi / 180); \t\t\t\t\t\t\t% deg"
+"ree to rad conversion \t\t\t\t\t\t\t\t\t\t\t\t\t\nC.Kp = -1/C.mag * cos(C.phi"
+" - C.phase);\t\t\t\t% proportional gain\nC.Ki = C.Kp*(-tan(C.phi - C.phase)*C"
+".wc);\t\t\t\t% integral gain\nif any((C.Ki < 0) || (C.Kp < 0))\n   error('Des"
+"ign parameters lead to negative controller parameters, please adjust crossove"
+"r frequency and/or phase margin.')\nend\n\n%% analytical calculations\nG_cont"
+"roller = C.Kp + C.Ki/s;\t\t\t\t\t\t\t\t% controller transfer function \nG_ol "
+"= G_plant_d * G_controller;\t\t\t\t\t\t\t% loop gain\n[magp, phasep] = bode(G"
+"_ol, C.wc);\t\t\t\t\t\t% calculation of magnitude and phase at crossover freq"
+"uency\n\n% bodeplot with x axis in Hz frequency\nif (strcmp(plots,'yes'))\n  "
+" [mag, ph, w] = bode(G_ol,logspace(1,5,200)*2*pi);\n   f = w/2/pi;\n   db = m"
+"ag2db(mag);\n   hf = figure();\n   subplot (2,1,1);\n   semilogx (f, db)\n   "
+"hold on\n   [Gm, Pm, Wcg, Wcp] = margin(G_ol);\n   title (['r_p = ' , num2str"
+"(mag2db(Gm)) , ' dB, \\phi_p = ' , num2str(Pm) , ' deg, \\omega_c = ' , num2s"
+"tr(Wcp/(2*pi)) ,' Hz']);\n   line(f,0,'Color','black','LineStyle','-.')\n   l"
+"ine(Wcp/(2*pi),-40:1:0,'Color','black','LineStyle','--')\n   line(Wcg/(2*pi),"
+"-mag2db(Gm):1:0,'Color','red','LineStyle','-')\n   line(Wcg/(2*pi),-40:1:-mag"
+"2db(Gm),'Color','black','LineStyle','--')\n   ylabel('Magnitude [db]')\n   gr"
+"id on\n   hold off\n   subplot (2,1,2);\n   semilogx (f, ph)\n   hold on\n   "
+"line(f,-180,'Color','black','LineStyle','-.')\n   line(Wcg/(2*pi),-180:1:0,'C"
+"olor','black','LineStyle','--')\n   line(Wcp/(2*pi),-180:1:Pm-180,'Color','re"
+"d','LineStyle','-')\n   line(Wcp/(2*pi),Pm-180:1:0,'Color','black','LineStyle"
+"','--')\n   xlabel('Frequency [Hz]')\n   ylabel('Phase [deg]')\n   grid on\n "
+"  hold off\nend"
+  InitialState  "1"
+  SystemState   ""
+  TaskingMode   "1"
+  TaskConfigurations ""
+  CodeGenParameterInlining "2"
+  CodeGenFloatingPointFormat "2"
+  CodeGenAbsTimeUsageMsg "3"
+  CodeGenBaseName ""
+  CodeGenOutputDir ""
+  CodeGenExtraOpts ""
+  CodeGenTarget "Generic"
+  CodeGenTargetSettings ""
+  ExtendedMatrixPrecision "1"
+  MatrixSignificanceCheck "2"
+  EnableStateSpaceSplitting "2"
+  DisplayStateSpaceSplitting "1"
+  DiscretizationMethod "2"
+  ExternalModeSettings ""
+  AlgebraicLoopMethod "1"
+  AlgebraicLoopTolerance "1e-6"
+  ScriptsDialogGeometry "[683 347 640 480]"
+  ScriptsDialogSplitterPos "47"
+  Schematic {
+    Location      [0, 26; 1536, 767]
+    ZoomFactor    0.873846
+    SliderPosition [-1, 0]
+    ShowBrowser   off
+    BrowserWidth  100
+    Component {
+      Type          ThreePhaseMeter
+      Name          "3ph Meter1"
+      Show          off
+      Position      [685, 390]
+      Direction     up
+      Flipped       off
+      LabelPosition southSoutheast
+      Parameter {
+        Variable      "voltage"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Ground
+      Name          "Ground1"
+      Show          off
+      Position      [685, 435]
+      Direction     up
+      Flipped       off
+      LabelPosition east
+    }
+    Component {
+      Type          Scope
+      Name          "3 Phase Voltage"
+      Show          on
+      Position      [755, 150]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Location      [0, 26; 1536, 850]
+      State         "AAAA/wAAAAD9AAAAAgAAAAEAAADhAAADrPwCAAAAA/sAAAAQAFoAbwBvA"
+"G0AQQByAGUAYQAAAAAA/////wAAAD8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAOAAAA6wAAAB+AP///wAAAAMAAAeAAAAAcvw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQCAAAAAAAAA5wAAAeAAAAAVQAAB4AAAAPnAAAA"
+"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
+"AAAAA=="
+      SavedViews    "AAAAAgAAAAA="
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
+"QAAAH0AAAAIAAAAfQAAAAMAAAB9AAAAAgAAAH0AAAABAAAAfQAAAAcAAAB9AAAABgAAAH0AAAAFAA"
+"AAfQAAAAQAAAB9AAABKwAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAAEOAAA"
+"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
+"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
+"AAdAAAAAQAAAAAAAAPoAAAAAB0="
+      PlotPalettes  "AAAAAQAAAAYAAAACAAAAAwAAAAIB/////6qq//8AAAL//y7g//+ZmQAAA"
+"AAAAgH//1VV/////wAAAv//AAD//8zMAAAAAAACAf////+qqgAAAAAC//9PsP//zMwAAAAAAAMAAA"
+"ACAQAAAAACAQAAAAACAQAAAAADAAAAAgAAAAEAAAABAAAAAgAAAAEAAAABAAAAAgAAAAEAAAABAAA"
+"AAwAAAAIAAAAAAAIAAAAAAAIAAAAAAAMAAAACP/AAAAAAAAA/8AAAAAAAAAAAAAI/8AAAAAAAAD/w"
+"AAAAAAAAAAAAAj/wAAAAAAAAP/AAAAAAAAAAAAADAAAAAgAAAAAAAgAAAAAAAgAA"
+      Axes          "1"
+      TimeRange     "0.0"
+      ScrollingMode "1"
+      SingleTimeAxis "1"
+      Open          "0"
+      Ts            "-1"
+      SampleLimit   "0"
+      XAxisLabel    ""
+      ShowLegend    "1"
+      Axis {
+        Name          ""
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Fourier {
+        SingleXAxis       on
+        AxisLabel         "Frequency"
+        Scaling           0
+        PhaseDisplay      0
+        ShowFourierLegend off
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
+      }
+    }
+    Component {
+      Type          Scope
+      Name          "3 Phase Current"
+      Show          on
+      Position      [755, 250]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Location      [0, 26; 1536, 850]
+      State         "AAAA/wAAAAD9AAAAAgAAAAEAAADhAAAD5/wCAAAAA/sAAAAQAFoAbwBvA"
+"G0AQQByAGUAYQAAAAAA/////wAAAD8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAOAAAA+cAAAB+AP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABfAP///wAAB4AAAAPnAAAA"
+"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
+"AAAAA=="
+      SavedViews    "AAAAAgAAAAA="
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
+"QAAAH0AAAAIAAAAfQAAAAMAAAB9AAAAAgAAAH0AAAABAAAAfQAAAAcAAAB9AAAABgAAAH0AAAAFAA"
+"AAfQAAAAQAAAB9AAABKwAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAAEOAAA"
+"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
+"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
+"AAdAAAAAQAAAAAAAAPoAAAAAB0="
+      PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      Axes          "1"
+      TimeRange     "0.0"
+      ScrollingMode "1"
+      SingleTimeAxis "1"
+      Open          "0"
+      Ts            "-1"
+      SampleLimit   "0"
+      XAxisLabel    ""
+      ShowLegend    "2"
+      Axis {
+        Name          ""
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {"Phase A Current", "Phase B Current", "Phase C Current"}
+        SignalTypes   [ ]
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Fourier {
+        SingleXAxis       on
+        AxisLabel         "Frequency"
+        Scaling           0
+        PhaseDisplay      0
+        ShowFourierLegend off
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {"Phase A Current", "Phase B Current", "Phase C Curren"
+"t"}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
+      }
+    }
+    Component {
+      Type          RotationalSpeedSensor
+      Name          "Motor Speed1"
+      Show          off
+      Position      [895, 475]
+      Direction     right
+      Flipped       on
+      LabelPosition east
+      Parameter {
+        Variable      "SecondFlange"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          AngleSensor
+      Name          "Motor Position1"
+      Show          off
+      Position      [925, 510]
+      Direction     right
+      Flipped       on
+      LabelPosition east
+      Parameter {
+        Variable      "SecondFlange"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "theta0"
+        Value         "0"
+        Show          off
+      }
+    }
+    Component {
+      Type          SignalMux
+      Name          "Mux4"
+      Show          off
+      Position      [855, 505]
+      Direction     right
+      Flipped       on
+      LabelPosition south
+      Parameter {
+        Variable      "Width"
+        Value         "2"
+        Show          off
+      }
+    }
+    Component {
+      Type          Goto
+      Name          "Goto13"
+      Show          off
+      Position      [835, 475]
+      Direction     right
+      Flipped       on
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "motor_speed"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Scope
+      Name          "Speed & Angle"
+      Show          on
+      Position      [750, 530]
+      Direction     down
+      Flipped       off
+      LabelPosition north
+      Location      [0, 26; 1536, 850]
+      State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
+"G0AQQByAGUAYQAAAAAA/////wAAAD8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAH4A////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAAB+AP///wAAAAMAAAeAAAAAmPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAAB4AAAABfAP///wAAB4AAAANKAAAA"
+"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
+"AAAAA=="
+      SavedViews    "AAAAAgAAAAA="
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
+"QAAAH0AAAAIAAAAfQAAAAMAAAB9AAAAAgAAAH0AAAABAAAAfQAAAAcAAAB9AAAABgAAAH0AAAAFAA"
+"AAfQAAAAQAAAB9AAAHgAAAAAsBAAABAAAAAAAAAAAAAAAAff////8AAACBAAAAAAAAAAsAAADTAAA"
+"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
+"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
+"AatAAAAAQAAAAAAAAPoAAAAAB0="
+      PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      Axes          "1"
+      TimeRange     "0.0"
+      ScrollingMode "1"
+      SingleTimeAxis "1"
+      Open          "0"
+      Ts            "-1"
+      SampleLimit   "0"
+      XAxisLabel    ""
+      ShowLegend    "1"
+      Axis {
+        Name          ""
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Fourier {
+        SingleXAxis       on
+        AxisLabel         "Frequency"
+        Scaling           0
+        PhaseDisplay      0
+        ShowFourierLegend off
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
+      }
+    }
+    Component {
+      Type          Goto
+      Name          "Goto7"
+      Show          off
+      Position      [860, 550]
+      Direction     left
+      Flipped       off
+      LabelPosition north
+      Parameter {
+        Variable      "Tag"
+        Value         "motor_angle"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Goto
+      Name          "Goto9"
+      Show          off
+      Position      [755, 210]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "3_phase_current"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          RotationalDamper
+      Name          "Rotational\nDamper"
+      Show          off
+      Position      [995, 505]
+      Direction     right
+      Flipped       on
+      LabelPosition east
+      CommentOut    DisabledOpenCircuit
+      Parameter {
+        Variable      "D"
+        Value         "0.5"
+        Show          on
+      }
+      Parameter {
+        Variable      "theta0"
+        Value         ""
+        Show          off
+      }
+    }
+    Component {
+      Type          RotationalReference
+      Name          "Rotational\nFrame"
+      Show          off
+      Position      [995, 535]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      CommentOut    DisabledOpenCircuit
+    }
+    Component {
+      Type          ControlledTorque
+      Name          "Torque"
+      Show          on
+      Position      [1115, 500]
+      Direction     left
+      Flipped       on
+      LabelPosition west
+      CommentOut    DisabledOpenCircuit
+      Parameter {
+        Variable      "SecondFlange"
+        Value         "2"
+        Show          off
+      }
+      Parameter {
+        Variable      "StateSpaceInlining"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          RotationalReference
+      Name          "Rotational\nFrame1"
+      Show          off
+      Position      [1115, 530]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      CommentOut    DisabledOpenCircuit
+    }
+    Component {
+      Type          Step
+      Name          "Step"
+      Show          on
+      Position      [1190, 500]
+      Direction     left
+      Flipped       off
+      LabelPosition north
+      CommentOut    DisabledOpenCircuit
+      Parameter {
+        Variable      "Time"
+        Value         "0.5"
+        Show          on
+      }
+      Parameter {
+        Variable      "Before"
+        Value         "0.1"
+        Show          on
+      }
+      Parameter {
+        Variable      "After"
+        Value         "5"
+        Show          on
+      }
+      Parameter {
+        Variable      "DataType"
+        Value         "10"
+        Show          off
+      }
+    }
+    Component {
+      Type          ThreePhaseVoltageSource
+      Name          "V_3ph"
+      Show          on
+      Position      [585, 390]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "V"
+        Value         "150"
+        Show          on
+      }
+      Parameter {
+        Variable      "w"
+        Value         "10"
+        Show          on
+      }
+      Parameter {
+        Variable      "phi"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "neutral"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Ground
+      Name          "Ground2"
+      Show          off
+      Position      [540, 430]
+      Direction     up
+      Flipped       off
+      LabelPosition east
+    }
+    Component {
+      Type          Reference
+      SrcComponent  "Components/Electrical/Machines/Perm.-Magnet SM"
+      Name          "Perm.-Magnet SM2"
+      Show          on
+      Position      [810, 390]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Frame         [-25, -25; 25, 35]
+      Parameter {
+        Variable      "configuration"
+        Value         "2"
+        Show          off
+      }
+      Parameter {
+        Variable      "R"
+        Value         "3"
+        Show          off
+      }
+      Parameter {
+        Variable      "L"
+        Value         "[1e-2 1e-2]"
+        Show          off
+      }
+      Parameter {
+        Variable      "phi"
+        Value         "0.2"
+        Show          off
+      }
+      Parameter {
+        Variable      "J"
+        Value         "0.0003389"
+        Show          off
+      }
+      Parameter {
+        Variable      "F"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "p"
+        Value         "4"
+        Show          off
+      }
+      Parameter {
+        Variable      "wm0"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "thm0"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "is0"
+        Value         "[0 0]"
+        Show          off
+      }
+      Terminal {
+        Type          Port
+        Position      [-30, -10]
+        Direction     left
+      }
+      Terminal {
+        Type          Port
+        Position      [-30, 0]
+        Direction     left
+      }
+      Terminal {
+        Type          Port
+        Position      [-30, 10]
+        Direction     left
+      }
+      Terminal {
+        Type          Rotational
+        Position      [30, 30]
+        Direction     right
+      }
+    }
+    Component {
+      Type          Reference
+      SrcComponent  "Components/Electrical/Machines/Perm.-Magnet SM"
+      Name          "Perm.-Magnet SM"
+      Show          on
+      Position      [950, 230]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      CommentOut    DisabledOpenCircuit
+      Frame         [-25, -25; 25, 35]
+      Parameter {
+        Variable      "configuration"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "R"
+        Value         "M.Rs"
+        Show          off
+      }
+      Parameter {
+        Variable      "L"
+        Value         "[M.Ld M.Lq]"
+        Show          off
+      }
+      Parameter {
+        Variable      "phi"
+        Value         "M.Psir"
+        Show          off
+      }
+      Parameter {
+        Variable      "J"
+        Value         "P.J"
+        Show          off
+      }
+      Parameter {
+        Variable      "F"
+        Value         "M.B"
+        Show          off
+      }
+      Parameter {
+        Variable      "p"
+        Value         "M.P/2"
+        Show          off
+      }
+      Parameter {
+        Variable      "wm0"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "thm0"
+        Value         "M.thm0"
+        Show          off
+      }
+      Parameter {
+        Variable      "is0"
+        Value         "M.is0"
+        Show          off
+      }
+      Terminal {
+        Type          Port
+        Position      [-30, -10]
+        Direction     left
+      }
+      Terminal {
+        Type          Port
+        Position      [-30, 0]
+        Direction     left
+      }
+      Terminal {
+        Type          Port
+        Position      [-30, 10]
+        Direction     left
+      }
+      Terminal {
+        Type          Rotational
+        Position      [30, 30]
+        Direction     right
+      }
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "3ph Meter1"
+      SrcTerminal   7
+      Points        [680, 150]
+      DstComponent  "3 Phase Voltage"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Motor Speed1"
+      SrcTerminal   2
+      Points        [870, 475]
+      Branch {
+        DstComponent  "Mux4"
+        DstTerminal   2
+      }
+      Branch {
+        DstComponent  "Goto13"
+        DstTerminal   1
+      }
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Mux4"
+      SrcTerminal   1
+      Points        [815, 505; 815, 530]
+      DstComponent  "Speed & Angle"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Motor Position1"
+      SrcTerminal   2
+      Points        [890, 510]
+      Branch {
+        DstComponent  "Mux4"
+        DstTerminal   3
+      }
+      Branch {
+        Points        [890, 550]
+        DstComponent  "Goto7"
+        DstTerminal   1
+      }
+    }
+    Connection {
+      Type          Rotational
+      SrcComponent  "Perm.-Magnet SM2"
+      SrcTerminal   4
+      Points        [875, 420; 875, 430; 895, 430]
+      Branch {
+        Points        [925, 430]
+        Branch {
+          DstComponent  "Motor Position1"
+          DstTerminal   1
+        }
+        Branch {
+          Points        [995, 430]
+          Branch {
+            DstComponent  "Rotational\nDamper"
+            DstTerminal   1
+          }
+          Branch {
+            Points        [1115, 430]
+            DstComponent  "Torque"
+            DstTerminal   3
+          }
+        }
+      }
+      Branch {
+        DstComponent  "Motor Speed1"
+        DstTerminal   1
+      }
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "3ph Meter1"
+      SrcTerminal   5
+      DstComponent  "Perm.-Magnet SM2"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "3ph Meter1"
+      SrcTerminal   6
+      DstComponent  "Perm.-Magnet SM2"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "3ph Meter1"
+      SrcTerminal   4
+      DstComponent  "Perm.-Magnet SM2"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "Ground1"
+      SrcTerminal   1
+      DstComponent  "3ph Meter1"
+      DstTerminal   9
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "3ph Meter1"
+      SrcTerminal   8
+      Points        [690, 250]
+      Branch {
+        DstComponent  "3 Phase Current"
+        DstTerminal   1
+      }
+      Branch {
+        Points        [690, 210]
+        DstComponent  "Goto9"
+        DstTerminal   1
+      }
+    }
+    Connection {
+      Type          Rotational
+      SrcComponent  "Rotational\nDamper"
+      SrcTerminal   2
+      DstComponent  "Rotational\nFrame"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Rotational
+      SrcComponent  "Torque"
+      SrcTerminal   1
+      DstComponent  "Rotational\nFrame1"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Step"
+      SrcTerminal   1
+      DstComponent  "Torque"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "Ground2"
+      SrcTerminal   1
+      Points        [540, 390]
+      DstComponent  "V_3ph"
+      DstTerminal   4
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "V_3ph"
+      SrcTerminal   1
+      DstComponent  "3ph Meter1"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "V_3ph"
+      SrcTerminal   2
+      DstComponent  "3ph Meter1"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "V_3ph"
+      SrcTerminal   3
+      DstComponent  "3ph Meter1"
+      DstTerminal   3
+    }
+  }
+  Analysis {
+    Type          MultitoneAnalysis
+    Name          "Loop Gain"
+    ShowLegend    "1"
+    StartTime     "0"
+    InitSimulationPeriod "0.1"
+    FrequencyRange "f_range"
+    Amplitude     "1e-4"
+    Perturbation  "Controls/iq_loopGain/Perturbation"
+    Response      "Controls/iq_loopGain/Response"
+  }
+  Analysis {
+    Type          MultitoneAnalysis
+    Name          "Setpoint to output transfer function"
+    ShowLegend    "1"
+    StartTime     "0"
+    InitSimulationPeriod "0.1"
+    FrequencyRange "f_range"
+    Amplitude     "1e-4"
+    Perturbation  "Controls/iq_perturb"
+    Response      "Controls/iq_response"
+  }
+  Script {
+    Name          "Script"
+    Script        ""
+  }
+}
