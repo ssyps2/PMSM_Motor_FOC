@@ -25,33 +25,50 @@ void main(void)
     // Initialize the PIE vector table with pointers to the shell Interrupt Service Routines (ISR).
     Interrupt_initVectorTable();
 
-    // ISRs for each CPU Timer interrupt
+    // ISRs for CPU Timer interrupt and ePWMs
     Interrupt_register(INT_TIMER0, &TIMER0ISR);
-    Interrupt_register(INT_TIMER1, &TIMER1ISR);
+
+    Interrupt_register(INT_EPWM1, &epwm1ISR);
+    Interrupt_register(INT_EPWM2, &epwm2ISR);
+//    Interrupt_register(INT_EPWM3, &epwm3ISR);
+//    Interrupt_register(INT_EPWM4, &epwm4ISR);
+//    Interrupt_register(INT_EPWM5, &epwm5ISR);
+//    Interrupt_register(INT_EPWM6, &epwm6ISR);
 
     // Initialize the CPU Timers
     initCPUTimers(CPUTIMER0_BASE);
-    initCPUTimers(CPUTIMER1_BASE);
 
-    // Configure CPU-Timer 0 and 1 (in uSeconds)
+    // Freeze clock to PWM
+    SysCtl_disablePeripheral(SYSCTL_PERIPH_CLK_TBCLKSYNC);
+
+    // Initialize ePWMs
+    initEPWM(EPWM1_BASE);
+    initEPWM(EPWM2_BASE);
+//    initEPWM(EPWM3_BASE);
+//    initEPWM(EPWM4_BASE);
+//    initEPWM(EPWM5_BASE);
+//    initEPWM(EPWM6_BASE);
+
+    // Enable clock to PWM
+    SysCtl_enablePeripheral(SYSCTL_PERIPH_CLK_TBCLKSYNC);
+
+    // Configure CPU-Timer 0 (in uSeconds)
     configCPUTimers(CPUTIMER0_BASE, DEVICE_SYSCLK_FREQ, 100);   // 10kHz
-    configCPUTimers(CPUTIMER1_BASE, DEVICE_SYSCLK_FREQ, 5);     // 200kHz
 
-    // To ensure precise timing, use write-only instructions to write to the
-    // entire register. Therefore, if any of the configuration bits are changed
-    // in configCPUTimer and initCPUTimers, the below settings must also
-    // be updated.
+    // Enables Timer interrupt and EPWM interrupt
     CPUTimer_enableInterrupt(CPUTIMER0_BASE);
-    CPUTimer_enableInterrupt(CPUTIMER1_BASE);
 
-    // Enables CPU interrupt which are connected to CPU-Timer 0 and CPU-Timer 1
-    // Enable TINT0 in the PIE: Group 1 interrupt 7
     Interrupt_enable(INT_TIMER0);
-    Interrupt_enable(INT_TIMER1);
 
-    // Starts CPU-Timer 0 and CPU-Timer 1
+    Interrupt_enable(INT_EPWM1);
+    Interrupt_enable(INT_EPWM2);
+    Interrupt_enable(INT_EPWM3);
+    Interrupt_enable(INT_EPWM4);
+    Interrupt_enable(INT_EPWM5);
+    Interrupt_enable(INT_EPWM6);
+
+    // Starts CPU-Timer 0
     CPUTimer_startTimer(CPUTIMER0_BASE);
-    CPUTimer_startTimer(CPUTIMER1_BASE);
 
     // Set up ADCs, initializing the SOCs
     initADCs();
@@ -65,6 +82,9 @@ void main(void)
 
     PIDParameters_Init();
 
+    // Test GPIO Init
+    testGPIOPin_Init();
+
     // Enable Global Interrupt (INTM) and realtime interrupt (DBGM)
     EINT;
     ERTM;
@@ -75,78 +95,46 @@ void main(void)
     }
 }
 
-//
+
 // Interrupt callback function of Timer 0
-//
 __interrupt void TIMER0ISR(void)
 {
-    ++cpuTimer0IntCount;
-
-    real_time0 = (float32_t)cpuTimer0IntCount / 10000;
+    real_time0 = (float32_t)(++cpuTimer0IntCount) / 10000;
 
     // Update current & voltage ADC reading
     ADC_updateReading(&dcVoltage_adc, &currA_adc, &currB_adc);
 
     // Calculate the real current & voltage values
     dcVoltage_1 = (float32_t)dcVoltage_adc * DC_VOLTAGE / 4096;
-    dcVoltage_2 = DC_VOLTAGE - dcVoltage_1;
     currA = (currA_adc * (3.3f/4095.0f) * (2.0f/3.0f) * (9.9f/4.3f) - 2.5f) / 0.1f;
     currB = (currB_adc * (3.3f/4095.0f) * (2.0f/3.0f) * (9.9f/4.3f) - 2.5f) / 0.1f;
 
     // Update motor angle and speed reading
-//    angle =           // in rad/s
-//    speed =           // in RPM
+//    angle_measure = getRotorAngle();          // in rad/s
+//    speed_measure = getRotorAngle();          // in RPM
 
     // Speed control loop
     current_set_Q = PIDController_Update(&pidSpeed, speed_set, speed_measure);
 
     // DC balance control
-    if(speed_set >= 0)
-    {
-        current_set_balanceDC = PIDController_Update(&pidBalanceDC, dcVoltage_1, dcVoltage_2);
-    }
-    else if(speed_set < 0)
-    {
-        current_set_balanceDC = PIDController_Update(&pidBalanceDC, dcVoltage_2, dcVoltage_1);
-    }
+    //current_set_balanceDC = PIDController_Update(&pidBalanceDC, dcVoltage_1, DC_VOLTAGE/2);
 
     // Current control loop: update 3 phase voltage_set
-    currentLoopCalc();
+    currentLoopCalc();  // -> get phaseVoltage_set[3]
 
-    // only for testing:
-    phaseVoltage_set[0] = 0.95 * sinf(100 * M_PI * real_time0);
-    phaseVoltage_set[1] = 0.95 * sinf(100 * M_PI * real_time0 + M_PI/3);
-    phaseVoltage_set[2] = 0.95 * sinf(100 * M_PI * real_time0 - M_PI/3);
+    // Only for testing:
+    phaseVoltage_set[0] = EPWM_TIMER_TBPRD * sinf(100 * M_PI * real_time0);
+    phaseVoltage_set[1] = EPWM_TIMER_TBPRD * sinf(100 * M_PI * real_time0 + M_PI/3);
+    phaseVoltage_set[2] = EPWM_TIMER_TBPRD * sinf(100 * M_PI * real_time0 - M_PI/3);
+
+    GPIO_togglePin(61); // testing the frequency in oscilloscope
 
     // Acknowledge the interrupt
     Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP1);
 }
 
 
-//
-// Interrupt callback function of Timer 1
-//
-__interrupt void TIMER1ISR(void)
-{
-    if(timer1Flag == 1) ++cpuTimer1IntCount;
-    else if (timer1Flag == 0) --cpuTimer1IntCount;
-
-    //real_time1 = (float32_t)cpuTimer1IntCount / 1000000;
-
-    if(cpuTimer1IntCount >= 10) timer1Flag = 0;         // hit upper limit, go down
-    else if (cpuTimer1IntCount == 0) timer1Flag = 1;    // hit lower limit, go up
-
-    // Generate the sawtooth waves
-    sawtooth_upper = (float32_t)cpuTimer1IntCount / 10;
-    sawtooth_lower = sawtooth_upper - 1;
-
-    // Generate PWM to control each IGBT
-    SPWM_generate_3level(phaseVoltage_set, sawtooth_upper, sawtooth_lower);
-}
-
-//
 // initCPUTimers - This function initializes all three CPU timers to a known state
-//
 void initCPUTimers(uint32_t cpuTimer)
 {
     // Initialize timer period to maximum
@@ -166,20 +154,96 @@ void initCPUTimers(uint32_t cpuTimer)
     {
         cpuTimer0IntCount = 0;
     }
-    else if(cpuTimer == CPUTIMER1_BASE)
-    {
-        cpuTimer1IntCount = 0;
-        timer1Flag = 1;
-    }
 }
 
 
-//
+// initEPWMs - Configure ePWM1 to ePWM6
+void initEPWM(uint32_t epwmTimer)
+{
+    // Set up counter mode (EPWMCLK = 100 MHz)
+    EPWM_setTimeBaseCounterMode(epwmTimer, EPWM_COUNTER_MODE_UP_DOWN);
+    EPWM_disablePhaseShiftLoad(epwmTimer);
+    EPWM_setClockPrescaler(epwmTimer,
+                           EPWM_CLOCK_DIVIDER_4,
+                           EPWM_HSCLOCK_DIVIDER_10);    // 100 MHz / (4*10) = 2.5 MHz
+
+    // Set-up TBCLK to 10 kHz
+    EPWM_setTimeBasePeriod(epwmTimer, EPWM_TIMER_TBPRD); // EPWM_TIMER_TBPRD = 125
+    EPWM_setPhaseShift(epwmTimer, 0U);
+    EPWM_setTimeBaseCounter(epwmTimer, 0U);
+
+    // Set Actions
+    EPWM_setActionQualifierAction(epwmTimer,
+                                  EPWM_AQ_OUTPUT_A,
+                                  EPWM_AQ_OUTPUT_HIGH,
+                                  EPWM_AQ_OUTPUT_ON_TIMEBASE_UP_CMPA);
+    EPWM_setActionQualifierAction(epwmTimer,
+                                  EPWM_AQ_OUTPUT_A,
+                                  EPWM_AQ_OUTPUT_LOW,
+                                  EPWM_AQ_OUTPUT_ON_TIMEBASE_DOWN_CMPA);
+    EPWM_setActionQualifierAction(epwmTimer,
+                                  EPWM_AQ_OUTPUT_B,
+                                  EPWM_AQ_OUTPUT_LOW,
+                                  EPWM_AQ_OUTPUT_ON_TIMEBASE_UP_CMPB);
+    EPWM_setActionQualifierAction(epwmTimer,
+                                  EPWM_AQ_OUTPUT_B,
+                                  EPWM_AQ_OUTPUT_HIGH,
+                                  EPWM_AQ_OUTPUT_ON_TIMEBASE_DOWN_CMPB);
+
+    // Set up shadowing
+    EPWM_setCounterCompareShadowLoadMode(epwmTimer,
+                                         EPWM_COUNTER_COMPARE_A,
+                                         EPWM_COMP_LOAD_ON_CNTR_ZERO);
+    EPWM_setCounterCompareShadowLoadMode(epwmTimer,
+                                         EPWM_COUNTER_COMPARE_B,
+                                         EPWM_COMP_LOAD_ON_CNTR_ZERO);
+
+
+    EPWM_setInterruptSource(epwmTimer, EPWM_INT_TBCTR_ZERO);
+    EPWM_enableInterrupt(epwmTimer);
+    EPWM_setInterruptEventCount(epwmTimer, 6U);
+}
+
+
+__interrupt void epwm1ISR(void)
+{
+    // Update Compare values
+    EPWM_setCounterCompareValue(EPWM1_BASE,
+                                EPWM_COUNTER_COMPARE_A,
+                                EPWM_TIMER_TBPRD + phaseVoltage_set[2]);
+    EPWM_setCounterCompareValue(EPWM1_BASE,
+                                EPWM_COUNTER_COMPARE_B,
+                                phaseVoltage_set[2]);
+
+    // Clear INT flag for this timer
+    EPWM_clearEventTriggerInterruptFlag(EPWM1_BASE);
+
+    // Acknowledge interrupt group
+    Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP3);
+}
+
+__interrupt void epwm2ISR(void)
+{
+    // Update Compare values
+    EPWM_setCounterCompareValue(EPWM2_BASE,
+                                EPWM_COUNTER_COMPARE_A,
+                                EPWM_TIMER_TBPRD + phaseVoltage_set[2]);
+    EPWM_setCounterCompareValue(EPWM2_BASE,
+                                EPWM_COUNTER_COMPARE_B,
+                                phaseVoltage_set[2]);
+
+    // Clear INT flag for this timer
+    EPWM_clearEventTriggerInterruptFlag(EPWM2_BASE);
+
+    // Acknowledge interrupt group
+    Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP3);
+}
+
+
 // configCPUTimer - This function initializes the selected timer to the
 // period specified by the "freq" and "period" parameters. The "freq" is
 // entered as Hz and the period in uSeconds. The timer is held in the stopped
 // state after configuration.
-//
 void configCPUTimers(uint32_t cpuTimer, float32_t freq, float32_t period)
 {
     // Initialize timer period:
@@ -201,8 +265,8 @@ void configCPUTimers(uint32_t cpuTimer, float32_t freq, float32_t period)
 void PIDParameters_Init(void)
 {
     /* ----------- Current Controller: Q Axis----------- */
-    pidCurrent_Q.Kp = 26.1f;
-    pidCurrent_Q.Ki = 4952.4f;
+    pidCurrent_Q.Kp = 2.08f;
+    pidCurrent_Q.Ki = 1328.39f;
 
     pidCurrent_Q.limMin = 0.0f;
     pidCurrent_Q.limMax = 100.0f;
@@ -211,8 +275,8 @@ void PIDParameters_Init(void)
     pidCurrent_Q.limMaxInt = 100.0f;
 
     /* ----------- Current Controller: D Axis----------- */
-    pidCurrent_D.Kp = 26.1f;
-    pidCurrent_D.Ki = 4952.4f;
+    pidCurrent_D.Kp = 2.08f;
+    pidCurrent_D.Ki = 1328.39f;
 
     pidCurrent_D.limMin = 0.0f;
     pidCurrent_D.limMax = 100.0f;
@@ -221,8 +285,8 @@ void PIDParameters_Init(void)
     pidCurrent_D.limMaxInt = 100.0f;
 
     /* ----------- Speed Controller -----------*/
-    pidSpeed.Kp = 0.1f;
-    pidSpeed.Ki = 0.01f;
+    pidSpeed.Kp = 0.2f;
+    pidSpeed.Ki = 1.27f;
 
     pidSpeed.limMin = 0.0f;
     pidSpeed.limMax = 10.0f;
@@ -232,7 +296,7 @@ void PIDParameters_Init(void)
 
     /* ----------- DC Balance Controller ----------- */
     pidBalanceDC.Kp = 0.1f;
-    pidBalanceDC.Ki = 0.01f;
+    pidBalanceDC.Ki = 1.0f;
 
     pidBalanceDC.limMin = 0.0f;
     pidBalanceDC.limMax = 5.0f;
@@ -242,9 +306,7 @@ void PIDParameters_Init(void)
 }
 
 
-//
 // Current loop calculation
-//
 void currentLoopCalc(void)
 {
     float32_t electrical_angle_measure = angle_measure * POLE_PAIRS;
@@ -255,19 +317,32 @@ void currentLoopCalc(void)
     float32_t curr_Beta1  = (currA + 2.0f * currB) * sqrtf(3) / 3.0f;
 
     // Park Transformation
-    float32_t curr_D1 = cosf(electrical_angle_measure)*curr_Alpha1 + sinf(electrical_angle_measure)*curr_Beta1;
-    float32_t curr_Q1 = -sinf(electrical_angle_measure)*curr_Alpha1 + cosf(electrical_angle_measure)*curr_Beta1;
+    float32_t curr_D1 = cosf(electrical_angle_measure)*curr_Alpha1
+            + sinf(electrical_angle_measure)*curr_Beta1;
+    float32_t curr_Q1 = -sinf(electrical_angle_measure)*curr_Alpha1
+            + cosf(electrical_angle_measure)*curr_Beta1;
 
     // Parallel PI loop: D-axis and Q-axis
-    float32_t curr_D2 = PIDController_Update(&pidCurrent_D, current_set_D, curr_D1) - (curr_Q1 * STATOR_L * electrical_speed_measure);
-    float32_t curr_Q2 = PIDController_Update(&pidCurrent_Q, current_set_Q, curr_Q1) + (FLUX * electrical_speed_measure) + (curr_D1 * STATOR_L * electrical_speed_measure);
+    float32_t curr_D2 = PIDController_Update(&pidCurrent_D, current_set_D, curr_D1)
+            - (curr_Q1 * STATOR_L * electrical_speed_measure);
+    float32_t curr_Q2 = PIDController_Update(&pidCurrent_Q, current_set_Q, curr_Q1)
+            + (FLUX * electrical_speed_measure) + (curr_D1 * STATOR_L * electrical_speed_measure);
 
     // Inverse Park Transformation
     float32_t curr_Alpha2 = cosf(electrical_angle_measure) * curr_D2 - sinf(electrical_angle_measure) * curr_Q2;
     float32_t curr_Beta2  = sinf(electrical_angle_measure) * curr_D2 + cosf(electrical_angle_measure) * curr_Q2;
 
     // Inverse Clark Transformation
-//    phaseVoltage_set[0] = (curr_Alpha2 + current_set_balanceDC) / DC_VOLTAGE;
-//    phaseVoltage_set[1] = (0.5f * (sqrtf(3) * curr_Beta2 - curr_Alpha2) + current_set_balanceDC) / DC_VOLTAGE;
-//    phaseVoltage_set[2] = (-0.5 * (curr_Alpha2 + sqrtf(3) * curr_Beta2) + current_set_balanceDC) / DC_VOLTAGE;
+    phaseVoltage_set[0] = EPWM_TIMER_TBPRD * (curr_Alpha2 + current_set_balanceDC) / DC_VOLTAGE;
+    phaseVoltage_set[1] = EPWM_TIMER_TBPRD * (0.5f * (sqrtf(3) * curr_Beta2 - curr_Alpha2) + current_set_balanceDC) / DC_VOLTAGE;
+    phaseVoltage_set[2] = EPWM_TIMER_TBPRD * (-0.5 * (curr_Alpha2 + sqrtf(3) * curr_Beta2) + current_set_balanceDC) / DC_VOLTAGE;
+}
+
+void testGPIOPin_Init(void)
+{
+    // Timer 0 frequency monitor
+    GPIO_setPadConfig(61, GPIO_PIN_TYPE_STD);
+    GPIO_setPinConfig(GPIO_61_GPIO61);
+    GPIO_setDirectionMode(61, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(61, 0);
 }

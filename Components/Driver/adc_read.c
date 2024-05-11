@@ -6,9 +6,8 @@
 
 #include "adc_read.h"
 
-//
+
 // Function to configure and power up ADCs
-//
 void initADCs(void)
 {
     // Set resolution and signal mode (see #defines above) and load corresponding trims.
@@ -32,7 +31,6 @@ void initADCs(void)
 // Function to configure SOCs of ADCs
 void initADCSOCs(void)
 {
-    //ADC_setupSOC(ADCA_BASE, ADC_SOC_NUMBER1, ADC_TRIGGER_CPU1_TINT0, ADC_CH_ADCIN2, 15);
     ADC_setupSOC(ADCA_BASE, ADC_SOC_NUMBER0, ADC_TRIGGER_CPU1_TINT0, ADC_CH_ADCIN3, 15);
     ADC_setupSOC(ADCB_BASE, ADC_SOC_NUMBER0, ADC_TRIGGER_CPU1_TINT0, ADC_CH_ADCIN3, 15);
     ADC_setupSOC(ADCC_BASE, ADC_SOC_NUMBER0, ADC_TRIGGER_CPU1_TINT0, ADC_CH_ADCIN3, 15);
@@ -41,7 +39,7 @@ void initADCSOCs(void)
 void ADC_updateReading(uint16_t *dcVolt, uint16_t *currA, uint16_t *currB)
 {
     // Store results
-    dcVolt = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER0);    // DC voltage
-    currA  = ADC_readResult(ADCBRESULT_BASE, ADC_SOC_NUMBER0);    // Phase A current
-    currB  = ADC_readResult(ADCCRESULT_BASE, ADC_SOC_NUMBER0);    // Phase B current
+    *dcVolt = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER0);    // DC voltage
+    *currA  = ADC_readResult(ADCBRESULT_BASE, ADC_SOC_NUMBER0);    // Phase A current
+    *currB  = ADC_readResult(ADCCRESULT_BASE, ADC_SOC_NUMBER0);    // Phase B current
 }

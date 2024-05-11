@@ -8,7 +8,8 @@
 #define COMPONENTS_DRIVER_SENSOR_READ_H_
 
 
-
+//float32_t getRotorAngle(void);
+//float32_t getRotorSpeed(void);
 
 
 #endif /* COMPONENTS_DRIVER_SENSOR_READ_H_ */
